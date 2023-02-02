@@ -1,14 +1,14 @@
 import 'package:almahbub_managment/model/product_model.dart';
 
 class BannerModel {
-  final String title;
+  final String image;
   final ProductModel product;
 
-  BannerModel({required this.title, required this.product});
+  BannerModel({required this.image, required this.product});
 
   factory BannerModel.fromJson(
       {required Map<String, dynamic> data, required Map? dataProduct}) {
     return BannerModel(
-        title: data["title"], product: ProductModel.fromJson(dataProduct));
+        image: data["image"], product: ProductModel.fromJson(dataProduct));
   }
 }
