@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
-import '../../../controller/home_controller.dart';
 import '../../../controller/local_store/local_store.dart';
 import '../../style/style.dart';
 import '../home_screen//home_page.dart';

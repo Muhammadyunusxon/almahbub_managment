@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:almahbub_managment/controller/local_store/local_store.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,7 +15,7 @@ class ProductController extends ChangeNotifier {
   final ImagePicker _image = ImagePicker();
 
   List<String> listOfCategory = [];
-  List<String> listOfType = ["KG", "PC"];
+  List<String> listOfType = [];
   bool isLoading = true;
   bool isSaveLoading = false;
   bool isSaveCategoryLoading = false;
@@ -29,9 +31,12 @@ class ProductController extends ChangeNotifier {
     notifyListeners();
     res = await firestore.collection("category").get();
     listOfCategory.clear();
-    res?.docs.forEach((element) {
-      listOfCategory.add(element["name"]);
-    });
+    if (res != null) {
+      for (var element in res!.docs) {
+        listOfCategory.add(element["name"]);
+      }
+    }
+    listOfType = await LocalStore.getType();
     isLoading = false;
     notifyListeners();
   }
@@ -77,13 +82,14 @@ class ProductController extends ChangeNotifier {
       {required String name,
       required String desc,
       required String price,
+      required String discount,
       required VoidCallback onSuccess}) async {
     isSaveLoading = true;
     notifyListeners();
     final storageRef = FirebaseStorage.instance
         .ref()
         .child("productImage/${DateTime.now().toString()}");
-    await storageRef.putFile(File(imagePath ?? ""));
+    await storageRef.putFile(File(imagePath));
     String url = await storageRef.getDownloadURL();
 
     await firestore.collection("products").add(ProductModel(
@@ -92,7 +98,8 @@ class ProductController extends ChangeNotifier {
             image: url,
             price: double.tryParse(price) ?? 0,
             category: res?.docs[selectCategoryIndex].id,
-            type: listOfType[selectTypeIndex])
+            type: listOfType[selectTypeIndex],
+            isLike: false, discount: int.tryParse(discount))
         .toJson());
     onSuccess();
     isSaveLoading = false;
@@ -105,9 +112,9 @@ class ProductController extends ChangeNotifier {
     final storageRef = FirebaseStorage.instance
         .ref()
         .child("categoryImage/${DateTime.now().toString()}");
-    await storageRef.putFile(File(categoryImagePath ?? ""));
+    await storageRef.putFile(File(categoryImagePath));
     String url = await storageRef.getDownloadURL();
-    print(url);
+      debugPrint(url);
     await firestore.collection("category").add({"name": name, "image": url});
     onSuccess();
     isSaveCategoryLoading = false;
@@ -118,6 +125,7 @@ class ProductController extends ChangeNotifier {
     isSaveCategoryLoading = true;
     notifyListeners();
     listOfType.add(name);
+    LocalStore.setType(name);
     onSuccess();
     isSaveCategoryLoading = false;
     notifyListeners();

@@ -5,16 +5,20 @@ class ProductModel {
   final num? price;
   final String? category;
   final String? type;
+  final int? discount;
+  bool isLike;
 
   ProductModel(
       {required this.name,
-        required this.desc,
-        required this.image,
-        required this.price,
-        required this.category,
-        required this.type});
+      required this.desc,
+      required this.image,
+      required this.price,
+      required this.category,
+      required this.type,
+      required this.isLike,
+      required this.discount});
 
-  factory ProductModel.fromJson(Map? data) {
+  factory ProductModel.fromJson(Map? data, bool? isLike) {
     return ProductModel(
       name: data?["name"],
       desc: data?["desc"],
@@ -22,6 +26,8 @@ class ProductModel {
       price: data?["price"],
       category: data?["category"],
       type: data?["type"],
+      discount: data?["discount"],
+      isLike: isLike ?? false,
     );
   }
 
@@ -32,7 +38,8 @@ class ProductModel {
       "image": image,
       "price": price,
       "category": category,
-      "type": type
+      "type": type,
+      "discount": discount
     };
   }
 }
