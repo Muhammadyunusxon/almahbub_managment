@@ -51,6 +51,11 @@ dependencies:
   connectivity_plus: ^3.0.2
   internet_connection_checker: ^1.0.0+1
   pattern_formatter: ^2.0.0
+  syncfusion_flutter_gauges: ^20.4.44
+  cached_network_image: ^3.2.3
+  intl: ^0.17.0
+  flutter_image_compress: ^1.1.3
+  proste_indexed_stack: ^0.2.4
 
 dev_dependencies:
   flutter_test:
