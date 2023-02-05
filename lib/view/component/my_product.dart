@@ -39,7 +39,20 @@ class MyProduct extends StatelessWidget {
                       model.isLike ? Icons.favorite : Icons.favorite_border,
                       color: Style.redColor,
                     )),
-              )
+              ),
+              Positioned(
+                left: 12,
+                top: 10,
+                child: model.discount != null && model.discount != 0
+                    ? Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 3, horizontal: 7),
+                        decoration: BoxDecoration(
+                            color: const Color(0xffEF8E91),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Text("${model.discount}%"))
+                    : const SizedBox.shrink(),
+              ),
             ],
           ),
           7.verticalSpace,
@@ -53,23 +66,13 @@ class MyProduct extends StatelessWidget {
           2.verticalSpace,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Row(
-              children: [
-                Text(
-                  NumberFormat.currency(
-                          locale: 'uz', symbol: "so'm", decimalDigits: 0)
-                      .format(model.price),
-                  style: Style.textStyleNormal(
-                      size: model.discount != null && model.discount != 0
-                          ? 13
-                          : 14,
-                      isActive: model.discount != null && model.discount != 0),
-                ),
-                12.horizontalSpace,
-                model.discount != null && model.discount != 0
-                    ? Text("-${model.discount}%")
-                    : const SizedBox.shrink(),
-              ],
+            child: Text(
+              NumberFormat.currency(
+                      locale: 'uz', symbol: "so'm", decimalDigits: 0)
+                  .format(model.price),
+              style: Style.textStyleNormal(
+                  size: model.discount != null && model.discount != 0 ? 13 : 14,
+                  isActive: model.discount != null && model.discount != 0),
             ),
           ),
           model.discount != null && model.discount != 0

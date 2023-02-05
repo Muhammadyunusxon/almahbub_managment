@@ -20,17 +20,17 @@ abstract class Style {
         kGreenColor,
       ]);
 
-  static LinearGradient secondaryGradiant = LinearGradient(
+  static LinearGradient secondaryGradiant = const LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
       colors: [mediumGreyColor, mediumGreyColor]);
 
-  static textStyleNormal({double size = 16, Color textColor = kTextDarkColor}) {
+  static textStyleNormal({double size = 16, Color textColor = kTextDarkColor,bool isActive=false}) {
     return GoogleFonts.manrope(
       fontSize: size,
       color: textColor,
       fontWeight: FontWeight.normal,
-      decoration: TextDecoration.none,
+      decoration: isActive? TextDecoration.lineThrough: TextDecoration.none,
     );
   }
 
@@ -80,6 +80,11 @@ abstract class Style {
         color: textColor,
         fontWeight: FontWeight.w600,
         decoration: TextDecoration.none);
+  }
+
+  static bottomText({double size = 16, Color textColor = kGreenColor}) {
+    return GoogleFonts.sourceSansPro(
+        fontSize: size, fontWeight: FontWeight.w600,color: textColor);
   }
 
   static myDecoration({required String title}) {

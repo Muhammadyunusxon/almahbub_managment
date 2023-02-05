@@ -49,7 +49,7 @@ abstract class LocalStore {
 
   static Future<List<String>> getType() async {
     SharedPreferences store = await SharedPreferences.getInstance();
-    List<String> list = store.getStringList('likes') ?? ["Kg", "Dona"];
+    List<String> list = store.getStringList('types') ?? ["Kg", "Dona"];
     return list;
   }
 

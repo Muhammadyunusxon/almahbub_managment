@@ -4,7 +4,7 @@ import 'package:almahbub_managment/controller/local_store/local_store.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -40,6 +40,18 @@ class ProductController extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
+  Future<Uint8List?> testCompressFile(File file) async {
+    var result = await FlutterImageCompress.compressWithFile(
+      file.absolute.path,
+      minWidth: 800,
+      minHeight: 800,
+      quality: 70,
+      rotate: 60,
+    );
+    print(file.lengthSync());
+    print(result?.length);
+    return result;
+  }
 
   getImageCamera() {
     _image.pickImage(source: ImageSource.camera).then((value) async {
@@ -59,6 +71,7 @@ class ProductController extends ChangeNotifier {
         CroppedFile? cropperImage =
             await ImageCropper().cropImage(sourcePath: value.path);
         imagePath = cropperImage?.path ?? "";
+        testCompressFile(File(imagePath));
         notifyListeners();
       }
     });
@@ -86,12 +99,13 @@ class ProductController extends ChangeNotifier {
       required VoidCallback onSuccess}) async {
     isSaveLoading = true;
     notifyListeners();
+    print("Start");
     final storageRef = FirebaseStorage.instance
         .ref()
         .child("productImage/${DateTime.now().toString()}");
     await storageRef.putFile(File(imagePath));
     String url = await storageRef.getDownloadURL();
-
+    print("1");
     await firestore.collection("products").add(ProductModel(
             name: name,
             desc: desc,
@@ -102,6 +116,8 @@ class ProductController extends ChangeNotifier {
             isLike: false, discount: int.tryParse(discount))
         .toJson());
     onSuccess();
+    clearImage();
+    print("END");
     isSaveLoading = false;
     notifyListeners();
   }
@@ -117,6 +133,7 @@ class ProductController extends ChangeNotifier {
       debugPrint(url);
     await firestore.collection("category").add({"name": name, "image": url});
     onSuccess();
+    clearCategoryImage();
     isSaveCategoryLoading = false;
     notifyListeners();
   }
