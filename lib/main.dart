@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
               primaryColor: kGreenColor,
             ),
             debugShowCheckedModeBanner: false,
-            home: SplashPage(),
+            home: const SplashPage(),
           );
         }
       ),

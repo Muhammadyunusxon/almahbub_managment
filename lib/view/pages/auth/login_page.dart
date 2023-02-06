@@ -2,6 +2,7 @@ import 'package:almahbub_managment/constants.dart';
 import 'package:almahbub_managment/view/component/my_button.dart';
 import 'package:almahbub_managment/view/pages/auth/widgets/password_field.dart';
 import 'package:almahbub_managment/view/pages/auth/widgets/phone_field.dart';
+import 'package:almahbub_managment/view/pages/general_connection_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -94,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => const HomePage()),
+                                    builder: (_) => const GeneralPage()),
                                 (route) => false);
                           });
                         }),
