@@ -25,6 +25,7 @@ class ProductController extends ChangeNotifier {
   QuerySnapshot? res;
   int selectCategoryIndex = 0;
   int selectTypeIndex = 0;
+  bool addError=false;
 
   getCategory() async {
     isLoading = true;
@@ -99,25 +100,27 @@ class ProductController extends ChangeNotifier {
       required VoidCallback onSuccess}) async {
     isSaveLoading = true;
     notifyListeners();
-    print("Start");
-    final storageRef = FirebaseStorage.instance
-        .ref()
-        .child("productImage/${DateTime.now().toString()}");
-    await storageRef.putFile(File(imagePath));
-    String url = await storageRef.getDownloadURL();
-    print("1");
-    await firestore.collection("products").add(ProductModel(
-            name: name,
-            desc: desc,
-            image: url,
-            price: double.tryParse(price) ?? 0,
-            category: res?.docs[selectCategoryIndex].id,
-            type: listOfType[selectTypeIndex],
-            isLike: false, discount: int.tryParse(discount))
-        .toJson());
-    onSuccess();
-    clearImage();
-    print("END");
+    if(imagePath.isNotEmpty && name.isNotEmpty && price.isNotEmpty && int.tryParse(discount) !=null ){
+      final storageRef = FirebaseStorage.instance
+          .ref()
+          .child("productImage/${DateTime.now().toString()}");
+      await storageRef.putFile(File(imagePath));
+      String url = await storageRef.getDownloadURL();
+      await firestore.collection("products").add(ProductModel(
+          name: name.toLowerCase(),
+          desc: desc,
+          image: url,
+          price: double.tryParse(price) ?? 0,
+          category: res?.docs[selectCategoryIndex].id,
+          type: listOfType[selectTypeIndex],
+          isLike: false, discount: int.tryParse(discount))
+          .toJson());
+      onSuccess();
+      clearImage();
+      addError=false;
+    }else{
+      addError=true;
+    }
     isSaveLoading = false;
     notifyListeners();
   }

@@ -21,10 +21,13 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
-  late  TextEditingController nameController ;
-  late  TextEditingController descController ;
-  late  TextEditingController discountController ;
-  late  TextEditingController priceController;
+  late TextEditingController nameController;
+
+  late TextEditingController descController;
+
+  late TextEditingController discountController;
+
+  late TextEditingController priceController;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final ImagePicker _picker = ImagePicker();
   String? imagePath;
@@ -32,18 +35,24 @@ class _AddScreenState extends State<AddScreen> {
 
   @override
   void initState() {
-    nameController =TextEditingController();
-    descController =TextEditingController();
-    discountController =TextEditingController();
-    priceController =TextEditingController();
+    nameController = TextEditingController();
+    descController = TextEditingController();
+    discountController = TextEditingController();
+    priceController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<ProductController>().getCategory();
     });
     super.initState();
   }
+  @override
+  void deactivate() {
+    print("object");
+    super.deactivate();
+  }
 
   @override
   void dispose() {
+    print("object");
     nameController.dispose();
     descController.dispose();
     discountController.dispose();
@@ -65,7 +74,7 @@ class _AddScreenState extends State<AddScreen> {
         ),
       ),
       body: state.isLoading
-          ?  Center(
+          ? Center(
               child: CircularProgressIndicator(
               color: kWhiteColor.withOpacity(0.7),
             ))
@@ -80,32 +89,36 @@ class _AddScreenState extends State<AddScreen> {
                   MyFormFiled(
                     controller: nameController,
                     title: 'Nomi',
+                    textInputAction: TextInputAction.next,
                   ),
                   18.verticalSpace,
                   MyFormFiled(
                     controller: descController,
                     title: 'Tavsifi',
+                    textInputAction: TextInputAction.next,
                   ),
                   18.verticalSpace,
                   MyFormFiled(
                     controller: priceController,
                     title: 'Narxi',
+                    textInputAction: TextInputAction.next,
                   ),
                   18.verticalSpace,
                   MyFormFiled(
                     controller: discountController,
                     title: 'Chegirma',
+                    textInputAction: TextInputAction.next,
                   ),
                   18.verticalSpace,
                   Row(
                     children: [
                       Expanded(
                         child: MyDropDown(
-                          value: state.listOfCategory.first,
                           list: state.listOfCategory,
                           onChanged: (value) {
                             event.setCategory(value.toString());
                           },
+                          hint: 'Kategoriyani tanlang',
                         ),
                       ),
                       IconButton(
@@ -130,11 +143,11 @@ class _AddScreenState extends State<AddScreen> {
                     children: [
                       Expanded(
                           child: MyDropDown(
-                        value: state.listOfType.first,
                         list: state.listOfType,
                         onChanged: (value) {
                           event.setType(value);
                         },
+                        hint: "O'lchov birligi",
                       )),
                       IconButton(
                         splashRadius: 26,
@@ -153,7 +166,15 @@ class _AddScreenState extends State<AddScreen> {
                       )
                     ],
                   ),
-                  48.verticalSpace,
+                  18.verticalSpace,
+                  state.addError
+                      ? Text(
+                          "Xatolik mavjud",
+                          style:
+                              Style.textStyleNormal(textColor: Style.redColor),
+                        )
+                      : const SizedBox.shrink(),
+                  24.verticalSpace,
                   GestureDetector(
                       onTap: () async {
                         event.createProduct(
@@ -189,7 +210,8 @@ class _AddScreenState extends State<AddScreen> {
                                       textColor: kGreenColor),
                                 ),
                               ),
-                      ))
+                      )),
+                  64.verticalSpace
                 ],
               ),
             ),

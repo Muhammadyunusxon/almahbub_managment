@@ -5,20 +5,20 @@ import '../../../style/style.dart';
 
 class SearchFormField extends StatelessWidget {
   final TextEditingController controller;
-  const SearchFormField({Key? key, required this.controller}) : super(key: key);
+  final ValueChanged<String?>? onchange;
+
+  const SearchFormField({Key? key, required this.controller, this.onchange}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      onChanged: (v){
-      },
+      onChanged: onchange,
       style: Style.textStyleNormal(textColor: kWhiteColor),
       decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(
-              vertical: 12, horizontal: 12),
-          prefixIconConstraints:
-          const BoxConstraints(maxHeight: 18),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+          prefixIconConstraints: const BoxConstraints(maxHeight: 18),
           prefixIcon: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: SvgPicture.asset(

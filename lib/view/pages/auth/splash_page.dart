@@ -69,12 +69,12 @@ class _SplashPageState extends State<SplashPage> {
                 ),
               ),
               32.verticalSpace,
-              context.watch<AppController>().isOnline? const SizedBox.shrink(): Center(
+              !context.watch<AppController>().isOnline? Center(
                 child: Text(
                   'Internetga ulaning',
-                  style: Style.brandStyle(size: 18),
+                  style: Style.brandStyle(size: 18,textColor: kYellowColor),
                 ),
-              ),
+              ): const SizedBox.shrink(),
             ],
           ),
         );

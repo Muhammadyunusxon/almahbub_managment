@@ -18,7 +18,7 @@ class MyProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(14),
           color: Style.mediumGreyColor),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,6 +26,7 @@ class MyProduct extends StatelessWidget {
           Stack(
             children: [
               CustomImageNetwork(
+                  radius: 14,
                   height: 155,
                   width: double.infinity,
                   image: model.image ?? ""),
@@ -59,7 +60,8 @@ class MyProduct extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Text(
-              model.name ?? "",
+              "${model.name?.substring(0, 1).toUpperCase()}"
+              "${model.name?.substring(1).toLowerCase()}",
               style: Style.textStyleNormal(size: 14),
             ),
           ),
