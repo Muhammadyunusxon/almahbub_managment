@@ -12,6 +12,7 @@ class HomeController extends ChangeNotifier {
   UserModel? user;
   List<BannerModel> listOfBanners = [];
   List<ProductModel> listOfProduct = [];
+  List<ProductModel> listOfFavouriteProduct = [];
   List<CategoryModel> listOfCategory = [];
   List listOfCategoryDocId = [];
   List listOfProductDocId = [];
@@ -30,7 +31,11 @@ class HomeController extends ChangeNotifier {
 
   changeLike(int index) async {
     listOfProduct[index].isLike = !listOfProduct[index].isLike;
-    LocalStore.setLikes(listOfProductDocId[index]);
+    if(listOfProduct[index].isLike) {
+      LocalStore.setLikes(listOfProductDocId[index]);
+    }else{
+      LocalStore.removeLikes(listOfProductDocId[index]);
+    }
     notifyListeners();
   }
 
@@ -48,7 +53,8 @@ class HomeController extends ChangeNotifier {
       listOfProductDocId.clear();
       List<String> listOfLikes = await LocalStore.getLikes();
       for (var element in res.docs) {
-        listOfProduct.add(ProductModel.fromJson(element.data(),listOfLikes.contains(element.id)));
+        listOfProduct.add(ProductModel.fromJson(
+            element.data(), listOfLikes.contains(element.id)));
         listOfProductDocId.add(element.id);
       }
     }
@@ -83,7 +89,7 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
     dynamic res;
     if (isLimit) {
-      res = await firestore.collection("category").limit(5).get();
+      res = await firestore.collection("category").limit(7).get();
     } else {
       res = await firestore.collection("category").get();
     }
@@ -109,12 +115,26 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
+  searchProduct(String name) async {
+    var res = await firestore.collection("products").orderBy("name").startAt(
+        [name.toLowerCase()]).endAt(["${name.toLowerCase()}\uf8ff"]).get();
+    listOfProduct.clear();
+    listOfProductDocId.clear();
+    for (var element in res.docs) {
+      List<String> listOfLikes = await LocalStore.getLikes();
+      listOfProduct.add(ProductModel.fromJson(
+          element.data(), listOfLikes.contains(element.id)));
+      listOfProductDocId.add(element.id);
+    }
+    notifyListeners();
+  }
+
   getProduct({bool isLimit = true}) async {
     _isProductLoading = true;
     notifyListeners();
-    var res;
+    QuerySnapshot<Map<String, dynamic>> res;
     if (isLimit) {
-      res = await firestore.collection("products").limit(5).get();
+      res = await firestore.collection("products").limit(40).get();
     } else {
       res = await firestore.collection("products").get();
     }
@@ -122,10 +142,21 @@ class HomeController extends ChangeNotifier {
     listOfProductDocId.clear();
     for (var element in res.docs) {
       List<String> listOfLikes = await LocalStore.getLikes();
-      listOfProduct.add(ProductModel.fromJson(element.data(),listOfLikes.contains(element.id)));
+      listOfProduct.add(ProductModel.fromJson(
+          element.data(), listOfLikes.contains(element.id)));
       listOfProductDocId.add(element.id);
     }
     _isProductLoading = false;
+    notifyListeners();
+  }
+
+  getFavourites() {
+    // ignore: avoid_function_literals_in_foreach_calls
+    listOfFavouriteProduct.clear();
+    for (var element in listOfProduct) {
+      element.isLike == true ? listOfFavouriteProduct.add(element) : element
+          .isLike = false;
+    }
     notifyListeners();
   }
 
