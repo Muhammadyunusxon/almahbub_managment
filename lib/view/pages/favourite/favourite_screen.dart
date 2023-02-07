@@ -58,6 +58,7 @@ class FavouriteScreen extends StatelessWidget {
                 return MyProduct(
                   model: state.listOfFavouriteProduct[index],
                   index: index,
+                  isFavPage: true,
                 );
               }),
     );

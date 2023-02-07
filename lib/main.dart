@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -24,26 +23,25 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context)=>AuthController()),
-        ChangeNotifierProvider(create: (context)=>HomeController()),
-        ChangeNotifierProvider(create: (context)=>AppController()),
-        ChangeNotifierProvider(create: (context)=>ProductController()),
-        ChangeNotifierProvider(create: (context)=>ChatController())
+        ChangeNotifierProvider(create: (context) => AuthController()),
+        ChangeNotifierProvider(create: (context) => HomeController()),
+        ChangeNotifierProvider(create: (context) => AppController()),
+        ChangeNotifierProvider(create: (context) => ProductController()),
+        ChangeNotifierProvider(create: (context) => ChatController())
       ],
       child: ScreenUtilInit(
           designSize: const Size(375, 812),
           minTextAdapt: true,
           splitScreenMode: true,
-        builder: (context,child) {
-          return MaterialApp(
-            theme: ThemeData(
-              primaryColor: kGreenColor,
-            ),
-            debugShowCheckedModeBanner: false,
-            home: const SplashPage(),
-          );
-        }
-      ),
+          builder: (context, child) {
+            return MaterialApp(
+              theme: ThemeData(
+                primaryColor: kGreenColor,
+              ),
+              debugShowCheckedModeBanner: false,
+              home: const SplashPage(),
+            );
+          }),
     );
   }
 }

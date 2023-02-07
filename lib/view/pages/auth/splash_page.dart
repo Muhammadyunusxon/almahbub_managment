@@ -25,20 +25,21 @@ class _SplashPageState extends State<SplashPage> {
       bool isOnline = await InternetConnectionChecker().hasConnection;
       // ignore: use_build_context_synchronously
       context.read<AppController>().changeOnline(isOnline);
-      if(isOnline){
-      if (docId != null) {
-        // ignore: use_build_context_synchronously
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (_) => const GeneralPage()),
-            (route) => false);
-      } else {
-        // ignore: use_build_context_synchronously
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (_) => const LoginPage()),
-            (route) => false);
-      }}
+      if (isOnline) {
+        if (docId != null) {
+          // ignore: use_build_context_synchronously
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => const GeneralPage()),
+              (route) => false);
+        } else {
+          // ignore: use_build_context_synchronously
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => const LoginPage()),
+              (route) => false);
+        }
+      }
     });
 
     super.initState();
@@ -47,38 +48,47 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ConnectivityResult>(
-      stream: Connectivity().onConnectivityChanged,
-      builder: (context, snapshot) {
-        WidgetsBinding.instance.addPostFrameCallback((_) async {
-          if(snapshot.data != null){
-            context.read<AppController>().changeOnline(true);
-          }else{
-            context.read<AppController>().changeOnline(false);
-          }
+        stream: Connectivity().onConnectivityChanged,
+        builder: (context, snapshot) {
+          WidgetsBinding.instance.addPostFrameCallback((_) async {
+            if (snapshot.hasData) {
+              context.read<AppController>().changeOnline(true);
+            } else if (snapshot.hasError) {
+              context.read<AppController>().changeOnline(false);
+            } else {
+              context.read<AppController>().changeOnline(null);
+            }
+          });
+          return Scaffold(
+            backgroundColor: kGreenColor,
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                (MediaQuery.of(context).size.height / 2.05).verticalSpace,
+                Center(
+                  child: Text(
+                    'AL MAHBUB',
+                    style: Style.brandStyleBold(),
+                  ),
+                ),
+                32.verticalSpace,
+                context.watch<AppController>().isOnline != null
+                    ? const SizedBox.shrink()
+                    : context.watch<AppController>().isOnline == false &&
+                            context.watch<AppController>().isOnline != null
+                        ? Center(
+                            child: Text(
+                              'Internetga ulaning',
+                              style: Style.brandStyle(
+                                  size: 18, textColor: kYellowColor),
+                            ),
+                          )
+                        : const CircularProgressIndicator(
+                            color: kYellowColor,
+                          )
+              ],
+            ),
+          );
         });
-        return Scaffold(
-          backgroundColor: kGreenColor,
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              (MediaQuery.of(context).size.height/2.05).verticalSpace,
-              Center(
-                child: Text(
-                  'AL MAHBUB',
-                  style: Style.brandStyleBold(),
-                ),
-              ),
-              32.verticalSpace,
-              !context.watch<AppController>().isOnline? Center(
-                child: Text(
-                  'Internetga ulaning',
-                  style: Style.brandStyle(size: 18,textColor: kYellowColor),
-                ),
-              ): const SizedBox.shrink(),
-            ],
-          ),
-        );
-      }
-    );
   }
 }

@@ -10,8 +10,9 @@ import 'my_image_network.dart';
 class MyProduct extends StatelessWidget {
   final ProductModel model;
   final int index;
+  final bool isFavPage;
 
-  const MyProduct({Key? key, required this.model, required this.index})
+  const MyProduct({Key? key, required this.model, required this.index,  this.isFavPage=false})
       : super(key: key);
 
   @override
@@ -34,7 +35,7 @@ class MyProduct extends StatelessWidget {
                 right: 0,
                 child: IconButton(
                     onPressed: () {
-                      context.read<HomeController>().changeLike(index);
+                      context.read<HomeController>().changeLike(index: index,isFav: isFavPage);
                     },
                     icon: Icon(
                       model.isLike ? Icons.favorite : Icons.favorite_border,

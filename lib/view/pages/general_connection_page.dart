@@ -43,7 +43,7 @@ class _GeneralPageState extends State<GeneralPage> {
        Icons.home,
        Icons.category,
        Icons.message,
-       Icons.account_box,
+       Icons.favorite,
      ],
      centerIcon: Icons.add,
      selectedIndex: _currentIndex,

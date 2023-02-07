@@ -8,13 +8,14 @@ class CustomImageNetwork extends StatelessWidget {
   final double height;
   final double width;
   final double radius;
+  final BoxFit boxFit;
 
   const CustomImageNetwork(
       {Key? key,
         required this.image,
         this.height = 120,
         this.width = 120,
-        this.radius = 16})
+        this.radius = 16,  this.boxFit=BoxFit.cover })
       : super(key: key);
 
   @override
@@ -25,7 +26,7 @@ class CustomImageNetwork extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(radius),
         child: CachedNetworkImage(
-          fit: BoxFit.cover,
+          fit: boxFit,
           imageUrl: image ?? "",
           progressIndicatorBuilder: (context, text, DownloadProgress value) {
             return Container(
