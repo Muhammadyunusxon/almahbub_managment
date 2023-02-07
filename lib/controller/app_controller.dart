@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AppController extends ChangeNotifier {
-  bool isOnline=true;
+  bool? isOnline;
 
-  changeOnline(bool isOnline){
-    this.isOnline=isOnline;
-    notifyListeners();
+  changeOnline(bool? isOnline){
+      this.isOnline=isOnline;
+      notifyListeners();
   }
 }

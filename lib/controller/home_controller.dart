@@ -24,16 +24,22 @@ class HomeController extends ChangeNotifier {
 
   getUser() async {
     String? docId = await LocalStore.getDocId();
-    var res =
-    await firestore.collection("users").doc(docId).get();
+    var res = await firestore.collection("users").doc(docId).get();
     user = UserModel.fromJson(res.data());
   }
 
-  changeLike(int index) async {
-    listOfProduct[index].isLike = !listOfProduct[index].isLike;
-    if(listOfProduct[index].isLike) {
+  changeLike({required int index, bool isFav = false}) async {
+    isFav
+        ? listOfFavouriteProduct[index].isLike =
+            !listOfFavouriteProduct[index].isLike
+        : listOfProduct[index].isLike = !listOfProduct[index].isLike;
+    if (isFav
+        ? listOfFavouriteProduct[index].isLike
+        : listOfProduct[index].isLike) {
+      print("set");
       LocalStore.setLikes(listOfProductDocId[index]);
-    }else{
+    } else {
+      print("remove");
       LocalStore.removeLikes(listOfProductDocId[index]);
     }
     notifyListeners();
@@ -154,8 +160,9 @@ class HomeController extends ChangeNotifier {
     // ignore: avoid_function_literals_in_foreach_calls
     listOfFavouriteProduct.clear();
     for (var element in listOfProduct) {
-      element.isLike == true ? listOfFavouriteProduct.add(element) : element
-          .isLike = false;
+      element.isLike == true
+          ? listOfFavouriteProduct.add(element)
+          : element.isLike = false;
     }
     notifyListeners();
   }

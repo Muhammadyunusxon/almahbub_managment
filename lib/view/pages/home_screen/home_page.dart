@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                 controller: searchController,
                 onchange: (v) {
                   if(v !=null  && v.isNotEmpty){
-                    context.read<HomeController>().searchProduct(v ?? "");
+                    context.read<HomeController>().searchProduct(v);
                   }
                   else{
                     context.read<HomeController>().getProduct(isLimit: true);

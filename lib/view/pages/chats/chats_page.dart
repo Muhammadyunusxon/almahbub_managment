@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../controller/chat_controller.dart';
 import '../../component/custom_text_from.dart';
+import '../../style/style.dart';
 import 'message_page.dart';
 
 class ChatsPage extends StatefulWidget {
@@ -39,7 +40,10 @@ class _ChatsPageState extends State<ChatsPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kGreenColor,
-        title: const Text("Chats"),
+        title: Text(
+          "Chatlar",
+          style: Style.brandStyle(size: 20, textColor: kWhiteColor),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -48,8 +52,8 @@ class _ChatsPageState extends State<ChatsPage> {
             Row(
               children: [
                 Expanded(
-                    child: CustomTextFrom(
-                        controller: searchUser, label: "Users")),
+                    child:
+                        CustomTextFrom(controller: searchUser, label: "Users")),
                 IconButton(
                     onPressed: () {
                       event.changeAddUser();

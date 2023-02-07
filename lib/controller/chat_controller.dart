@@ -45,7 +45,6 @@ class ChatController extends ChangeNotifier {
     String? userId = await LocalStore.getDocId();
     users.clear();
     listOfDocIdUser.clear();
-
     for (var element in res.docs) {
       if (userId != element.id) {
         users.add(UserModel.fromJson(element.data()));

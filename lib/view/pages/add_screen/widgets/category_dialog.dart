@@ -62,7 +62,7 @@ class _CategoryDialogState extends State<CategoryDialog> {
                     borderRadius: BorderRadius.circular(14),
                     child: Image.file(
                       File(state.categoryImagePath),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),

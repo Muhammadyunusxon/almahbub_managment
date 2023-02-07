@@ -33,7 +33,7 @@ abstract class LocalStore {
     return list;
   }
 
-  static removeLikes(int id) async {
+  static removeLikes(String id) async {
     SharedPreferences store = await SharedPreferences.getInstance();
     List<String> list = store.getStringList('likes') ?? [];
     list.removeWhere((element) => element==id.toString());
