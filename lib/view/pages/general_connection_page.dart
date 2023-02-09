@@ -5,11 +5,7 @@ import 'package:almahbub_managment/view/pages/favourite/favourite_screen.dart';
 import 'package:almahbub_managment/view/pages/home_screen/home_page.dart';
 import 'package:diamond_bottom_bar/diamond_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:proste_indexed_stack/proste_indexed_stack.dart';
-
-import '../component/bottom_navy_bar.dart';
-import '../style/style.dart';
 import 'category/category_screen.dart';
 
 class GeneralPage extends StatefulWidget {
@@ -32,10 +28,15 @@ class _GeneralPageState extends State<GeneralPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kGreenColor,
       resizeToAvoidBottomInset: false,
-      body: ProsteIndexedStack(
-        index: _currentIndex,
-        children: listOfPage,
+      extendBody: true,
+      body: SafeArea(
+        bottom:false,
+        child: ProsteIndexedStack(
+          index: _currentIndex,
+          children: listOfPage,
+        ),
       ),
    bottomNavigationBar: DiamondBottomNavigation(
        selectedColor:kGreenColor,

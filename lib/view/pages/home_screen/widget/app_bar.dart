@@ -13,13 +13,12 @@ class MyAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Container(
-      height: 180,
+      height: 175,
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 24),
       color: kGreenColor,
       child: Column(
         children: [
-          const SizedBox(height: 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -44,7 +43,7 @@ class MyAppBar extends StatelessWidget {
               )
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 7),
           Row(
             children: [
               SvgPicture.asset('assets/svg/location.svg', height: 14),

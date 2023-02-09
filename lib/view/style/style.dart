@@ -11,6 +11,9 @@ abstract class Style {
   static const yellowColor = Color(0xffFBA808);
   static const formColor = Color(0xff8F92A1);
   static const redColor = Color(0xffEF4B5F);
+  static const shimmerBaseColor = Color(0x80FFFFFF);
+  static const shimmerHighlightColor = Color(0x33FFFFFF);
+  static const shimmerColor = Color(0x3348319D);
 
   static LinearGradient primaryGradiant = const LinearGradient(
       begin: Alignment.topLeft,

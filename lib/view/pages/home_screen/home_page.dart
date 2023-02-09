@@ -48,9 +48,9 @@ class _HomePageState extends State<HomePage> {
             pinned: true,
             snap: false,
             floating: false,
-            expandedHeight: 180,
+            expandedHeight: 175,
             flexibleSpace: FlexibleSpaceBar(
-              collapseMode: CollapseMode.parallax,
+              collapseMode: CollapseMode.pin,
               title: SearchFormField(
                 controller: searchController,
                 onchange: (v) {
@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               titlePadding:
-                  const EdgeInsets.symmetric(horizontal: 28, vertical: 16),
+                  const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
               background: const MyAppBar(),
               expandedTitleScale: 1,
             ),

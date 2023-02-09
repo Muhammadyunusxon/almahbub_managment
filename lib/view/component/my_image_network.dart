@@ -1,5 +1,7 @@
+import 'package:almahbub_managment/view/component/shimmer_item.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../style/style.dart';
 
@@ -29,12 +31,7 @@ class CustomImageNetwork extends StatelessWidget {
           fit: boxFit,
           imageUrl: image ?? "",
           progressIndicatorBuilder: (context, text, DownloadProgress value) {
-            return Container(
-              decoration: BoxDecoration(
-                color: Style.mediumGreyColor,
-                borderRadius: BorderRadius.circular(radius),
-              ),
-            );
+            return ShimmerItem(height: height,width: width, radius: radius);
           },
           errorWidget: (context, _, __) {
             return const Icon(Icons.error);

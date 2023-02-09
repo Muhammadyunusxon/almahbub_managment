@@ -21,28 +21,32 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      String? docId = await LocalStore.getDocId();
-      bool isOnline = await InternetConnectionChecker().hasConnection;
-      // ignore: use_build_context_synchronously
-      context.read<AppController>().changeOnline(isOnline);
-      if (isOnline) {
-        if (docId != null) {
-          // ignore: use_build_context_synchronously
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (_) => const GeneralPage()),
-              (route) => false);
-        } else {
-          // ignore: use_build_context_synchronously
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (_) => const LoginPage()),
-              (route) => false);
-        }
-      }
+      getInfo();
     });
 
     super.initState();
+  }
+
+  getInfo() async {
+    String? docId = await LocalStore.getDocId();
+    bool isOnline = await InternetConnectionChecker().hasConnection;
+    // ignore: use_build_context_synchronously
+    context.read<AppController>().changeOnline(isOnline);
+    if (isOnline) {
+      if (docId != null) {
+        // ignore: use_build_context_synchronously
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (_) => const GeneralPage()),
+                (route) => false);
+      } else {
+        // ignore: use_build_context_synchronously
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (_) => const LoginPage()),
+                (route) => false);
+      }
+    }
   }
 
   @override
@@ -53,7 +57,8 @@ class _SplashPageState extends State<SplashPage> {
           WidgetsBinding.instance.addPostFrameCallback((_) async {
             if (snapshot.hasData) {
               context.read<AppController>().changeOnline(true);
-            } else if (snapshot.hasError) {
+              getInfo();
+            } else if (snapshot.connectionState.name == "waiting") {
               context.read<AppController>().changeOnline(false);
             } else {
               context.read<AppController>().changeOnline(null);
@@ -72,7 +77,7 @@ class _SplashPageState extends State<SplashPage> {
                   ),
                 ),
                 32.verticalSpace,
-                context.watch<AppController>().isOnline != null
+                context.watch<AppController>().isOnline == true && context.watch<AppController>().isOnline != null
                     ? const SizedBox.shrink()
                     : context.watch<AppController>().isOnline == false &&
                             context.watch<AppController>().isOnline != null
