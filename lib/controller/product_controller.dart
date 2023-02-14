@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:almahbub_managment/controller/local_store/local_store.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -49,8 +48,6 @@ class ProductController extends ChangeNotifier {
       quality: 70,
       rotate: 60,
     );
-    print(file.lengthSync());
-    print(result?.length);
     return result;
   }
 
@@ -97,10 +94,12 @@ class ProductController extends ChangeNotifier {
       required String desc,
       required String price,
       required String discount,
+        required bool isUpdate,
       required VoidCallback onSuccess}) async {
     isSaveLoading = true;
     notifyListeners();
     if(imagePath.isNotEmpty && name.isNotEmpty && price.isNotEmpty && int.tryParse(discount) !=null ){
+
       final storageRef = FirebaseStorage.instance
           .ref()
           .child("productImage/${DateTime.now().toString()}");

@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 
 import '../../../controller/auth_controller.dart';
 import '../../style/style.dart';
-import '../home_screen//home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

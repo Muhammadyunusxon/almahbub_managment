@@ -5,16 +5,16 @@ import 'package:almahbub_managment/view/pages/add_screen/widgets/image_field.dar
 import 'package:almahbub_managment/view/pages/add_screen/widgets/my_drop_down.dart';
 import 'package:almahbub_managment/view/pages/add_screen/widgets/my_form_field.dart';
 import 'package:almahbub_managment/view/pages/add_screen/widgets/type_dialog.dart';
+import 'package:almahbub_managment/view/pages/general_connection_page.dart';
 import 'package:almahbub_managment/view/style/style.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import '../home_screen/home_page.dart';
 
 class AddScreen extends StatefulWidget {
-  const AddScreen({Key? key}) : super(key: key);
+  final bool isUpdate;
+  const AddScreen({Key? key,  this.isUpdate=false}) : super(key: key);
 
   @override
   State<AddScreen> createState() => _AddScreenState();
@@ -29,7 +29,6 @@ class _AddScreenState extends State<AddScreen> {
 
   late TextEditingController priceController;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final ImagePicker _picker = ImagePicker();
   String? imagePath;
   bool isLoading = false;
 
@@ -46,13 +45,11 @@ class _AddScreenState extends State<AddScreen> {
   }
   @override
   void deactivate() {
-    print("object");
     super.deactivate();
   }
 
   @override
   void dispose() {
-    print("object");
     nameController.dispose();
     descController.dispose();
     discountController.dispose();
@@ -186,9 +183,9 @@ class _AddScreenState extends State<AddScreen> {
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => const HomePage()),
+                                    builder: (_) => const GeneralPage()),
                                 (route) => false);
-                          },
+                          }, isUpdate: widget.isUpdate,
                         );
                       },
                       child: Container(

@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../constants.dart';
 import '../../../style/style.dart';
-import 'search_form_field.dart';
 
 class MyAppBar extends StatelessWidget {
   const MyAppBar({Key? key}) : super(key: key);
@@ -34,7 +33,6 @@ class MyAppBar extends StatelessWidget {
               IconButton(
                 splashRadius: 24,
                 onPressed: () {
-                  print("Navigator");
                 },
                 icon: SizedBox(
                     height: 18,

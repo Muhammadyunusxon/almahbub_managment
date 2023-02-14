@@ -36,10 +36,8 @@ class HomeController extends ChangeNotifier {
     if (isFav
         ? listOfFavouriteProduct[index].isLike
         : listOfProduct[index].isLike) {
-      print("set");
       LocalStore.setLikes(listOfProductDocId[index]);
     } else {
-      print("remove");
       LocalStore.removeLikes(listOfProductDocId[index]);
     }
     notifyListeners();

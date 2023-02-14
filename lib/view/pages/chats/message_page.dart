@@ -57,7 +57,7 @@ class _MessagePageState extends State<MessagePage> {
         body: state.isLoading
             ? const Center(child: CircularProgressIndicator())
             : ListView.builder(
-                padding: EdgeInsets.all(24),
+                padding: const EdgeInsets.all(24),
                 reverse: true,
                 itemCount: state.isUploading
                     ? state.messages.length + 1
@@ -137,7 +137,7 @@ class _MessagePageState extends State<MessagePage> {
                                       "image"
                                   ? Padding(
                                       padding:
-                                          EdgeInsets.symmetric(vertical: 12),
+                                          const EdgeInsets.symmetric(vertical: 12),
                                       child: CustomImageNetwork(
                                         image: state
                                             .messages[state.isUploading

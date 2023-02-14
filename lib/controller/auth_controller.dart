@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../../controller/local_store/local_store.dart';
 import '../../../model/user_model.dart';
 
@@ -19,6 +17,7 @@ class AuthController extends ChangeNotifier {
           .collection("users")
           .where("phone", isEqualTo: phone)
           .get();
+      // ignore: unnecessary_null_comparison
       if (res.docs.first != null) {
         return true;
       } else {
