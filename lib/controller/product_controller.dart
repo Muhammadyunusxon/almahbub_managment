@@ -21,10 +21,21 @@ class ProductController extends ChangeNotifier {
   String docId = '';
   String imagePath = "";
   String categoryImagePath = "";
-  QuerySnapshot? res;
+  // ignore: prefer_typing_uninitialized_variables
+  var res;
   int selectCategoryIndex = 0;
   int selectTypeIndex = 0;
-  bool addError=false;
+  bool addError = false;
+
+  String? initialCategory;
+  String? initialType;
+
+  getSingleCategory(String docId) async {
+    var category = await firestore.collection("category").doc(docId).get();
+    initialCategory = category["name"];
+    setCategory(category["name"]);
+    notifyListeners();
+  }
 
   getCategory() async {
     isLoading = true;
@@ -40,6 +51,7 @@ class ProductController extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
+
   Future<Uint8List?> testCompressFile(File file) async {
     var result = await FlutterImageCompress.compressWithFile(
       file.absolute.path,
@@ -85,8 +97,28 @@ class ProductController extends ChangeNotifier {
     selectCategoryIndex = listOfCategory.indexOf(category);
   }
 
+  setImagePath(String image) {
+    imagePath = image;
+    notifyListeners();
+  }
+
   setType(String type) {
     selectTypeIndex = listOfType.indexOf(type);
+  }
+
+  setInitialType(String? type) {
+    initialType = type;
+    setType(type ?? "");
+    notifyListeners();
+  }
+
+  setImageStorage() async {
+    final storageRef = FirebaseStorage.instance
+        .ref()
+        .child("productImage/${DateTime.now().toString()}");
+    await storageRef.putFile(File(imagePath));
+    String url = await storageRef.getDownloadURL();
+    return url;
   }
 
   createProduct(
@@ -94,33 +126,67 @@ class ProductController extends ChangeNotifier {
       required String desc,
       required String price,
       required String discount,
-        required bool isUpdate,
+       String id="",
+      required bool isUpdate,
       required VoidCallback onSuccess}) async {
     isSaveLoading = true;
     notifyListeners();
-    if(imagePath.isNotEmpty && name.isNotEmpty && price.isNotEmpty && int.tryParse(discount) !=null ){
+    if (isUpdate) {
+      String url;
+      if (imagePath.contains("https")) {
+        url = imagePath;
+      } else {
+        url = setImageStorage();
+      }
+      print(selectTypeIndex);
 
-      final storageRef = FirebaseStorage.instance
-          .ref()
-          .child("productImage/${DateTime.now().toString()}");
-      await storageRef.putFile(File(imagePath));
-      String url = await storageRef.getDownloadURL();
-      await firestore.collection("products").add(ProductModel(
-          name: name.toLowerCase(),
-          desc: desc,
-          image: url,
-          price: double.tryParse(price) ?? 0,
-          category: res?.docs[selectCategoryIndex].id,
-          type: listOfType[selectTypeIndex],
-          isLike: false, discount: int.tryParse(discount))
-          .toJson());
-      onSuccess();
-      clearImage();
-      addError=false;
-    }else{
-      addError=true;
+      editProduct(
+        product: ProductModel(
+            name: name,
+            desc: desc,
+            image: url,
+            price: double.tryParse(price) ?? 0,
+            category: res?.docs[selectCategoryIndex].id,
+            type: listOfType[selectTypeIndex],
+            isLike: false,
+            id: id,
+            discount: int.tryParse(discount)),
+      );
+    } else {
+      if (imagePath.isNotEmpty &&
+          name.isNotEmpty &&
+          price.isNotEmpty &&
+          int.tryParse(discount) != null) {
+        String url = await setImageStorage();
+        await firestore.collection("products").add(ProductModel(
+                name: name.toLowerCase(),
+                desc: desc,
+                image: url,
+                price: double.tryParse(price) ?? 0,
+                category: res?.docs[selectCategoryIndex].id,
+                type: listOfType[selectTypeIndex],
+                isLike: false,
+                discount: int.tryParse(discount),
+                id: '')
+            .toJson());
+      } else {
+        addError = true;
+      }
     }
+    onSuccess();
+    clearImage();
+    addError = false;
     isSaveLoading = false;
+    notifyListeners();
+  }
+
+  editProduct({ProductModel? product}) async {
+    if (product != null) {
+      await firestore
+          .collection("products")
+          .doc(product.id)
+          .update(product.toJson());
+    }
     notifyListeners();
   }
 
@@ -132,7 +198,7 @@ class ProductController extends ChangeNotifier {
         .child("categoryImage/${DateTime.now().toString()}");
     await storageRef.putFile(File(categoryImagePath));
     String url = await storageRef.getDownloadURL();
-      debugPrint(url);
+    debugPrint(url);
     await firestore.collection("category").add({"name": name, "image": url});
     onSuccess();
     clearCategoryImage();

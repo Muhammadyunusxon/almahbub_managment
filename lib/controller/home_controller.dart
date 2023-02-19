@@ -14,13 +14,11 @@ class HomeController extends ChangeNotifier {
   List<ProductModel> listOfProduct = [];
   List<ProductModel> listOfFavouriteProduct = [];
   List<CategoryModel> listOfCategory = [];
-  List listOfCategoryDocId = [];
-  List listOfProductDocId = [];
   bool _isLoading = true;
   bool setFilter = false;
   bool _isCategoryLoading = true;
   bool _isProductLoading = true;
-  int selectIndex = -1;
+  List<CategoryModel> listOfSelectIndex = [];
 
   getUser() async {
     String? docId = await LocalStore.getDocId();
@@ -29,39 +27,49 @@ class HomeController extends ChangeNotifier {
   }
 
   changeLike({required int index, bool isFav = false}) async {
-    isFav
-        ? listOfFavouriteProduct[index].isLike =
-            !listOfFavouriteProduct[index].isLike
-        : listOfProduct[index].isLike = !listOfProduct[index].isLike;
+    if (isFav) {
+      listOfFavouriteProduct[index].isLike =
+          !listOfFavouriteProduct[index].isLike;
+    } else {
+      listOfProduct[index].isLike = !listOfProduct[index].isLike;
+    }
+    notifyListeners();
     if (isFav
         ? listOfFavouriteProduct[index].isLike
         : listOfProduct[index].isLike) {
-      LocalStore.setLikes(listOfProductDocId[index]);
+      LocalStore.setLikes(listOfFavouriteProduct[index].id ?? " ");
     } else {
-      LocalStore.removeLikes(listOfProductDocId[index]);
+      LocalStore.removeLikes(listOfProduct[index].id ?? " ");
     }
     notifyListeners();
   }
 
-  changeIndex(int index) async {
-    if (selectIndex == index) {
-      selectIndex = -1;
+  changeIndex(CategoryModel model) async {
+    if (listOfSelectIndex.contains(model)) {
+      listOfSelectIndex.remove(model);
       getProduct(isLimit: false);
     } else {
-      selectIndex = index;
-      var res = await firestore
-          .collection("products")
-          .where("category", isEqualTo: listOfCategoryDocId[selectIndex])
-          .get();
+      setFilter = true;
+      listOfSelectIndex.add(model);
       listOfProduct.clear();
-      listOfProductDocId.clear();
       List<String> listOfLikes = await LocalStore.getLikes();
-      for (var element in res.docs) {
-        listOfProduct.add(ProductModel.fromJson(
-            element.data(), listOfLikes.contains(element.id)));
-        listOfProductDocId.add(element.id);
+      for (int i = 0; i < listOfSelectIndex.length; i++) {
+        var res = await firestore
+            .collection("products")
+            .where("category", isEqualTo: listOfSelectIndex[i].id)
+            .get();
+        for (var element in res.docs) {
+          listOfProduct.add(ProductModel.fromJson(
+              data: element.data(),
+              id: element.id,
+              isLike: listOfLikes.contains(element.id)));
+        }
       }
     }
+    if (listOfSelectIndex.isEmpty) {
+      setFilter = false;
+    }
+
     notifyListeners();
   }
 
@@ -74,15 +82,17 @@ class HomeController extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
     var res = await firestore.collection("banner").get();
+    List<String> listOfLikes = await LocalStore.getLikes();
     listOfBanners.clear();
     for (var element in res.docs) {
       String docId = element.data()["productId"];
-      var res = await firestore
-          .collection("products")
-          .doc(docId.replaceAll(" ", ""))
-          .get();
-      listOfBanners.add(
-          BannerModel.fromJson(data: element.data(), dataProduct: res.data()));
+      var res = await firestore.collection("products").doc(docId.replaceAll(" ", "")).get();
+      listOfBanners.add(BannerModel.fromJson(
+        data: element.data(),
+        dataProduct: res.data(),
+        isLike: listOfLikes.contains(element.id),
+        id: element.id,
+      ));
     }
     _isLoading = false;
     notifyListeners();
@@ -98,10 +108,8 @@ class HomeController extends ChangeNotifier {
       res = await firestore.collection("category").get();
     }
     listOfCategory.clear();
-    listOfCategoryDocId.clear();
     for (var element in res.docs) {
-      listOfCategory.add(CategoryModel.fromJson(element.data()));
-      listOfCategoryDocId.add(element.id);
+      listOfCategory.add(CategoryModel.fromJson(element.data(), element.id));
     }
     _isCategoryLoading = false;
     notifyListeners();
@@ -111,10 +119,8 @@ class HomeController extends ChangeNotifier {
     var res = await firestore.collection("category").orderBy("name").startAt(
         [name.toLowerCase()]).endAt(["${name.toLowerCase()}\uf8ff"]).get();
     listOfCategory.clear();
-    listOfCategoryDocId.clear();
     for (var element in res.docs) {
-      listOfCategory.add(CategoryModel.fromJson(element.data()));
-      listOfCategoryDocId.add(element.id);
+      listOfCategory.add(CategoryModel.fromJson(element.data(), element.id));
     }
     notifyListeners();
   }
@@ -123,12 +129,12 @@ class HomeController extends ChangeNotifier {
     var res = await firestore.collection("products").orderBy("name").startAt(
         [name.toLowerCase()]).endAt(["${name.toLowerCase()}\uf8ff"]).get();
     listOfProduct.clear();
-    listOfProductDocId.clear();
     for (var element in res.docs) {
       List<String> listOfLikes = await LocalStore.getLikes();
       listOfProduct.add(ProductModel.fromJson(
-          element.data(), listOfLikes.contains(element.id)));
-      listOfProductDocId.add(element.id);
+          data: element.data(),
+          isLike: listOfLikes.contains(element.id),
+          id: element.id));
     }
     notifyListeners();
   }
@@ -143,12 +149,12 @@ class HomeController extends ChangeNotifier {
       res = await firestore.collection("products").get();
     }
     listOfProduct.clear();
-    listOfProductDocId.clear();
     for (var element in res.docs) {
       List<String> listOfLikes = await LocalStore.getLikes();
       listOfProduct.add(ProductModel.fromJson(
-          element.data(), listOfLikes.contains(element.id)));
-      listOfProductDocId.add(element.id);
+          data: element.data(),
+          isLike: listOfLikes.contains(element.id),
+          id: element.id));
     }
     _isProductLoading = false;
     notifyListeners();
@@ -164,6 +170,8 @@ class HomeController extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+
 
   bool get isTotalLoading =>
       _isLoading || _isCategoryLoading || _isProductLoading;

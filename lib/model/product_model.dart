@@ -6,6 +6,7 @@ class ProductModel {
   final String? category;
   final String? type;
   final int? discount;
+  final String? id;
   bool isLike;
 
   ProductModel(
@@ -16,9 +17,10 @@ class ProductModel {
       required this.category,
       required this.type,
       required this.isLike,
+      required this.id,
       required this.discount});
 
-  factory ProductModel.fromJson(Map? data, bool? isLike) {
+  factory ProductModel.fromJson({required Map? data, required bool? isLike,required String? id}) {
     return ProductModel(
       name: data?["name"],
       desc: data?["desc"],
@@ -28,6 +30,7 @@ class ProductModel {
       type: data?["type"],
       discount: data?["discount"],
       isLike: isLike ?? false,
+      id: id,
     );
   }
 

@@ -6,9 +6,11 @@ class BannerModel {
 
   BannerModel({required this.image, required this.product});
 
-  factory BannerModel.fromJson(
-      {required Map<String, dynamic> data, required Map? dataProduct}) {
+  factory BannerModel.fromJson({required Map<String,
+      dynamic> data, required Map? dataProduct, required bool isLike, required String id}) {
     return BannerModel(
-        image: data["image"], product: ProductModel.fromJson(dataProduct,false));
+        image: data["image"],
+        product: ProductModel.fromJson(
+            data: dataProduct, isLike: isLike, id: id));
   }
 }

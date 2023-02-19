@@ -1,6 +1,7 @@
 import 'package:almahbub_managment/view/utils/constants.dart';
 import 'package:almahbub_managment/view/utils/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../controller/home_controller.dart';
@@ -34,7 +35,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kGreenColor,
-        title: Text("Kategoriya",style: Style.brandStyle(size: 20,textColor: kWhiteColor),),
+        title: Text(
+          "Kategoriya",
+          style: Style.brandStyle(size: 20, textColor: kWhiteColor),
+        ),
       ),
       body: Column(
         children: [
@@ -56,31 +60,29 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 itemCount: state.listOfCategory.length,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    mainAxisExtent: 120,
-                    mainAxisSpacing: 12,
-                    crossAxisSpacing: 12),
+                    mainAxisExtent: 125.h,
+                    mainAxisSpacing: 12.h,
+                    crossAxisSpacing: 12.w),
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
                       Container(
-                        margin: const EdgeInsets.all(8),
+                        margin: EdgeInsets.all(8.r),
                         width: SizeConfig.screenWidth! / 3,
                         height: SizeConfig.screenWidth! / 3 - 42,
                         padding: const EdgeInsets.all(6),
                         decoration: BoxDecoration(
-                          color: const Color(0xff3A860A).withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(10)
-                        ),
+                            color: const Color(0xff3A860A).withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(10)),
                         child: Column(
                           children: [
                             state.listOfCategory[index].image == null
                                 ? const SizedBox.shrink()
                                 : CustomImageNetwork(
                                     image:
-                                        state.listOfCategory[index].image ??
-                                            "",
+                                        state.listOfCategory[index].image ?? "",
                                     boxFit: BoxFit.contain,
                                     height: SizeConfig.screenWidth! / 3 - 60,
                                     width: SizeConfig.screenWidth! / 3 - 60,
@@ -88,7 +90,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           ],
                         ),
                       ),
-                      Text(state.listOfCategory[index].name ?? "",)
+                      Text(
+                        state.listOfCategory[index].name ?? "",
+                      )
                     ],
                   );
                 }),

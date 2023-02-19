@@ -14,7 +14,6 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<HomeController>();
-    final event = context.read<HomeController>();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 18),
       child: Column(
@@ -54,7 +53,12 @@ class Body extends StatelessWidget {
               itemBuilder: (context, index) {
                 return MyProduct(
                   model: state.listOfProduct[index],
-                  index: index,
+                  index: index, onLike: () {
+
+                    context
+                        .read<HomeController>()
+                        .changeLike(index: index, isFav: false);
+                },
                 );
               }),
           12.verticalSpace,

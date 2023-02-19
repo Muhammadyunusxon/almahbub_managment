@@ -13,7 +13,6 @@ class MyBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<HomeController>();
-    final event = context.read<HomeController>();
     final size = MediaQuery.of(context).size;
     return SizedBox(
       height: 200,

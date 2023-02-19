@@ -1,8 +1,8 @@
-import 'package:almahbub_managment/controller/home_controller.dart';
+import 'package:almahbub_managment/view/pages/add_screen/add_product_screen.dart';
+import 'package:almahbub_managment/view/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import '../../../model/product_model.dart';
 import '../style/style.dart';
 import 'my_image_network.dart';
@@ -10,9 +10,13 @@ import 'my_image_network.dart';
 class MyProduct extends StatelessWidget {
   final ProductModel model;
   final int index;
-  final bool isFavPage;
+  final VoidCallback onLike;
 
-  const MyProduct({Key? key, required this.model, required this.index,  this.isFavPage=false})
+  const MyProduct(
+      {Key? key,
+      required this.model,
+      required this.index,
+      required this.onLike})
       : super(key: key);
 
   @override
@@ -34,9 +38,7 @@ class MyProduct extends StatelessWidget {
               Positioned(
                 right: 0,
                 child: IconButton(
-                    onPressed: () {
-                      context.read<HomeController>().changeLike(index: index,isFav: isFavPage);
-                    },
+                    onPressed: onLike,
                     icon: Icon(
                       model.isLike ? Icons.favorite : Icons.favorite_border,
                       color: Style.redColor,
@@ -50,10 +52,26 @@ class MyProduct extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             vertical: 3, horizontal: 7),
                         decoration: BoxDecoration(
-                            color: const Color(0xffEF8E91),
+                            color: kBrandColor,
                             borderRadius: BorderRadius.circular(5)),
-                        child: Text("${model.discount}%"))
+                        child: Text("-${model.discount}%"))
                     : const SizedBox.shrink(),
+              ),
+              Positioned(
+                bottom: 4,
+                right: 4,
+                child: IconButton(
+                  splashRadius: 32,
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => AddProductScreen(product: model)));
+                  },
+                  icon: Container(
+                      padding: const EdgeInsets.all(5),
+                      decoration: const BoxDecoration(
+                          color: kBrandColor, shape: BoxShape.circle),
+                      child: const Icon(Icons.edit, size: 20)),
+                ),
               ),
             ],
           ),
