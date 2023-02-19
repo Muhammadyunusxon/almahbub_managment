@@ -3,10 +3,8 @@ import 'dart:io';
 import 'package:almahbub_managment/view/utils/component/my_image_network.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 
 import '../../../utils/constants.dart';
-import '../../../../controller/product_controller.dart';
 import 'my_dialog.dart';
 
 class ImageField extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import '../../../controller/local_store/local_store.dart';
-import '../../../model/user_model.dart';
+import '../../../domen/model/user_model.dart';
 
 class AuthController extends ChangeNotifier {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;

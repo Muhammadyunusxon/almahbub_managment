@@ -1,5 +1,5 @@
 
-import 'package:almahbub_managment/model/user_model.dart';
+import 'package:almahbub_managment/domen/model/user_model.dart';
 
 class ChatsModel {
   final List ids;

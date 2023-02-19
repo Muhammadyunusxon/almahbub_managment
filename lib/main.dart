@@ -1,3 +1,4 @@
+import 'package:almahbub_managment/controller/location_map_controller.dart';
 import 'package:almahbub_managment/view/utils/constants.dart';
 import 'package:almahbub_managment/controller/app_controller.dart';
 import 'package:almahbub_managment/controller/auth_controller.dart';
@@ -37,7 +38,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => HomeController()),
         ChangeNotifierProvider(create: (context) => AppController()),
         ChangeNotifierProvider(create: (context) => ProductController()),
-        ChangeNotifierProvider(create: (context) => ChatController())
+        ChangeNotifierProvider(create: (context) => ChatController()),
+        ChangeNotifierProvider(create: (context) => LocationMapController())
       ],
       child: ScreenUtilInit(
           designSize: const Size(375, 812),

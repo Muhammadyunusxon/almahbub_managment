@@ -3,7 +3,7 @@ import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../model/message_model.dart';
+import '../../../../domen/model/message_model.dart';
 
 class MessageItem extends StatelessWidget {
   final bool isOwner;

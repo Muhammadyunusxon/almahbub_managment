@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import '../model/banner_model.dart';
-import '../model/category_model.dart';
-import '../model/product_model.dart';
+import '../domen/model/banner_model.dart';
+import '../domen/model/category_model.dart';
+import '../domen/model/product_model.dart';
 
-import '../model/user_model.dart';
+import '../domen/model/user_model.dart';
 import 'local_store/local_store.dart';
 
 class HomeController extends ChangeNotifier {

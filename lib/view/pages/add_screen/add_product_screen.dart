@@ -1,10 +1,10 @@
-import 'package:almahbub_managment/model/product_model.dart';
+import 'package:almahbub_managment/domen/model/product_model.dart';
 import 'package:almahbub_managment/view/utils/constants.dart';
 import 'package:almahbub_managment/controller/product_controller.dart';
 import 'package:almahbub_managment/view/pages/add_screen/widgets/category_dialog.dart';
 import 'package:almahbub_managment/view/pages/add_screen/widgets/image_field.dart';
 import 'package:almahbub_managment/view/pages/add_screen/widgets/my_drop_down.dart';
-import 'package:almahbub_managment/view/pages/add_screen/widgets/my_form_field.dart';
+import 'package:almahbub_managment/view/utils/component/my_form_field.dart';
 import 'package:almahbub_managment/view/pages/add_screen/widgets/type_dialog.dart';
 import 'package:almahbub_managment/view/pages/general_connection_page.dart';
 import 'package:easy_localization/easy_localization.dart';

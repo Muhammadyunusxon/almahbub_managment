@@ -1,4 +1,5 @@
-import 'package:almahbub_managment/model/product_model.dart';
+
+import 'package:almahbub_managment/domen/model/product_model.dart';
 
 class BannerModel {
   final String image;

@@ -2,7 +2,7 @@ import 'package:almahbub_managment/view/pages/chats/widgets/custom_video.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../controller/chat_controller.dart';
-import '../../../model/user_model.dart';
+import '../../../domen/model/user_model.dart';
 
 import '../../utils/component/custom_text_from.dart';
 import '../../utils/component/diss_keyboard.dart';

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
-import '../model/user_model.dart';
+import '../domen/model/user_model.dart';
 import 'local_store/local_store.dart';
 
 class UserController extends ChangeNotifier {

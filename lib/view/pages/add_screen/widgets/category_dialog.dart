@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:almahbub_managment/view/pages/add_screen/widgets/my_form_field.dart';
+import 'package:almahbub_managment/view/utils/component/my_form_field.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

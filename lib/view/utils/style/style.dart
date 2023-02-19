@@ -84,19 +84,34 @@ abstract class Style {
     return GoogleFonts.sourceSansPro(
         fontSize: size, fontWeight: FontWeight.w600, color: textColor);
   }
-
-  static myDecoration({required String title}) {
+  static myDecoration(
+      {required String title,
+        Color? titleColor,
+        Color? fillColor,
+        Widget? prefixIcon,
+        Widget? suffixIcon,
+        Color? borderColor}) {
     return InputDecoration(
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-        prefixIconConstraints: const BoxConstraints(maxHeight: 18),
-        hintText: title,
-        hintStyle: Style.textStyleNormal(
-            textColor: kWhiteColor.withOpacity(0.7), size: 15),
-        filled: true,
-        fillColor: kWhiteColor.withOpacity(0.3),
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide.none));
+      contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+      prefixIconConstraints: const BoxConstraints(maxHeight: 18),
+      hintText: title,
+      prefixIcon: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: prefixIcon),
+      suffixIcon: suffixIcon,
+      hintStyle: Style.textStyleNormal(
+          textColor: titleColor ?? kTextDarkColor.withOpacity(0.6), size: 15),
+      filled: true,
+      fillColor: fillColor ?? Colors.transparent,
+      border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: borderColor ?? Colors.transparent)),
+      focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: borderColor ?? Colors.transparent)),
+      enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: borderColor ?? Colors.transparent)),
+    );
   }
 }

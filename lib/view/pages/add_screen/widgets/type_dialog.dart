@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../utils/constants.dart';
 import '../../../../controller/product_controller.dart';
 import '../../../utils/Style/style.dart';
-import 'my_form_field.dart';
+import '../../../utils/component/my_form_field.dart';
 
 class TypeDialog extends StatefulWidget {
   const TypeDialog({Key? key}) : super(key: key);

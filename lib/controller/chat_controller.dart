@@ -5,9 +5,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import '../model/chats_model.dart';
-import '../model/message_model.dart';
-import '../model/user_model.dart';
+import '../domen/model/chats_model.dart';
+import '../domen/model/message_model.dart';
+import '../domen/model/user_model.dart';
 import 'local_store/local_store.dart';
 
 class ChatController extends ChangeNotifier {
