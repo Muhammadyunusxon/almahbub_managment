@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../controller/chat_controller.dart';
 import '../../../model/user_model.dart';
-import '../../component/custom_text_from.dart';
-import '../../component/diss_keyboard.dart';
-import '../../component/my_image_network.dart';
+
+import '../../utils/component/custom_text_from.dart';
+import '../../utils/component/diss_keyboard.dart';
+import '../../utils/component/my_image_network.dart';
 import 'widgets/message_item.dart';
 
 class MessagePage extends StatefulWidget {

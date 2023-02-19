@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../constants.dart';
+import '../constants.dart';
 
 abstract class Style {
   Style._();
@@ -18,27 +18,26 @@ abstract class Style {
   static LinearGradient primaryGradiant = const LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
-      colors: [
-        kTextGreenColor,
-        kGreenColor,
-      ]);
+      colors: [kTextGreenColor, kGreenColor]);
 
   static LinearGradient secondaryGradiant = const LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
       colors: [mediumGreyColor, mediumGreyColor]);
 
-  static textStyleNormal({double size = 16, Color textColor = kTextDarkColor,bool isActive=false}) {
+  static textStyleNormal(
+      {double size = 16,
+      Color textColor = kTextDarkColor,
+      bool isActive = false}) {
     return GoogleFonts.manrope(
       fontSize: size,
       color: textColor,
       fontWeight: FontWeight.normal,
-      decoration: isActive? TextDecoration.lineThrough: TextDecoration.none,
+      decoration: isActive ? TextDecoration.lineThrough : TextDecoration.none,
     );
   }
 
-  static textStyleSemiBold(
-      {double size = 16, Color textColor = kTextDarkColor}) {
+  static textStyleSemiBold({double size = 16, Color textColor = kTextDarkColor}) {
     return GoogleFonts.manrope(
       fontSize: size,
       color: textColor,
@@ -47,10 +46,7 @@ abstract class Style {
     );
   }
 
-  static textStyleBold({
-    double size = 18,
-    Color textColor = kTextDarkColor,
-  }) {
+  static textStyleBold({double size = 18, Color textColor = kTextDarkColor}) {
     return GoogleFonts.manrope(
       fontSize: size,
       color: textColor,
@@ -59,8 +55,7 @@ abstract class Style {
     );
   }
 
-  static textStyleRegular(
-      {double size = 16, Color textColor = kTextDarkColor}) {
+  static textStyleRegular({double size = 16, Color textColor = kTextDarkColor}) {
     return GoogleFonts.manrope(
       fontSize: size,
       color: textColor,
@@ -87,7 +82,7 @@ abstract class Style {
 
   static bottomText({double size = 16, Color textColor = kGreenColor}) {
     return GoogleFonts.sourceSansPro(
-        fontSize: size, fontWeight: FontWeight.w600,color: textColor);
+        fontSize: size, fontWeight: FontWeight.w600, color: textColor);
   }
 
   static myDecoration({required String title}) {

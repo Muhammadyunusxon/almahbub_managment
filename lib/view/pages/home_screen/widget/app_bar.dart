@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../constants.dart';
-import '../../../style/style.dart';
+import '../../../utils/constants.dart';
+import '../../../utils/Style/style.dart';
 
 class MyAppBar extends StatelessWidget {
   const MyAppBar({Key? key}) : super(key: key);

@@ -1,12 +1,12 @@
-import 'package:almahbub_managment/constants.dart';
+import 'package:almahbub_managment/view/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../controller/home_controller.dart';
-import '../../../size_config.dart';
-import '../../component/my_product.dart';
-import '../../style/style.dart';
+import '../../utils/Style/style.dart';
+import '../../utils/component/my_product.dart';
+import '../../utils/size_config.dart';
 
 class FavouriteScreen extends StatelessWidget {
   const FavouriteScreen({Key? key}) : super(key: key);
@@ -30,7 +30,7 @@ class FavouriteScreen extends StatelessWidget {
       body: state.listOfFavouriteProduct.isEmpty
           ? Column(
               children: [
-              ((SizeConfig.screenHeight!)~/5).toInt().verticalSpace,
+                ((SizeConfig.screenHeight!) ~/ 5).toInt().verticalSpace,
                 Padding(
                   padding: EdgeInsets.only(
                       left: SizeConfig.screenWidth! / 7,
@@ -39,7 +39,7 @@ class FavouriteScreen extends StatelessWidget {
                 ),
                 Text(
                   "Saralang"
-                      "anlar mavjud emas",
+                  "anlar mavjud emas",
                   style: Style.textStyleNormal(textColor: Style.semiGreyColor),
                 )
               ],

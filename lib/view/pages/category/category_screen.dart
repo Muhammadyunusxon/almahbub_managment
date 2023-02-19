@@ -1,11 +1,11 @@
-import 'package:almahbub_managment/constants.dart';
-import 'package:almahbub_managment/size_config.dart';
-import 'package:almahbub_managment/view/component/my_image_network.dart';
+import 'package:almahbub_managment/view/utils/constants.dart';
+import 'package:almahbub_managment/view/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../controller/home_controller.dart';
-import '../../style/style.dart';
+import '../../utils/Style/style.dart';
+import '../../utils/component/my_image_network.dart';
 import '../home_screen/widget/search_form_field.dart';
 
 class CategoryScreen extends StatefulWidget {

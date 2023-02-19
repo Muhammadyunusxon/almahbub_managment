@@ -2,8 +2,8 @@ import 'package:almahbub_managment/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../constants.dart';
-import '../../../component/my_image_network.dart';
+import '../../../utils/component/my_image_network.dart';
+import '../../../utils/constants.dart';
 
 class MyBanner extends StatelessWidget {
   final Function onTap;

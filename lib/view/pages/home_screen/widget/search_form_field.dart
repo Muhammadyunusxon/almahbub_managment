@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../../constants.dart';
-import '../../../style/style.dart';
+import '../../../utils/constants.dart';
+import '../../../utils/Style/style.dart';
 
 class SearchFormField extends StatelessWidget {
   final TextEditingController controller;
   final ValueChanged<String?>? onchange;
 
-  const SearchFormField({Key? key, required this.controller, this.onchange}) : super(key: key);
+  const SearchFormField({Key? key, required this.controller, this.onchange})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +22,7 @@ class SearchFormField extends StatelessWidget {
           prefixIconConstraints: const BoxConstraints(maxHeight: 18),
           prefixIcon: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: SvgPicture.asset(
-              "assets/svg/search.svg",
-              height: 16,
-            ),
+            child: SvgPicture.asset("assets/svg/search.svg", height: 16),
           ),
           hintText: "Qidirish uchun yozing",
           hintStyle: Style.textStyleNormal(

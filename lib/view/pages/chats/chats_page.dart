@@ -1,10 +1,10 @@
-import 'package:almahbub_managment/constants.dart';
+import 'package:almahbub_managment/view/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../controller/chat_controller.dart';
-import '../../component/custom_text_from.dart';
-import '../../style/style.dart';
+import '../../utils/Style/style.dart';
+import '../../utils/component/custom_text_from.dart';
 import 'message_page.dart';
 
 class ChatsPage extends StatefulWidget {

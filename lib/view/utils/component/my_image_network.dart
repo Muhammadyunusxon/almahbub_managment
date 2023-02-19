@@ -1,4 +1,4 @@
-import 'package:almahbub_managment/view/component/shimmer_item.dart';
+import 'package:almahbub_managment/view/utils/component/shimmer_item.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 

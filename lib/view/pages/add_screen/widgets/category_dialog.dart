@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../constants.dart';
+import '../../../utils/Style/style.dart';
+import '../../../utils/constants.dart';
 import '../../../../controller/product_controller.dart';
-import '../../../style/style.dart';
 
 class CategoryDialog extends StatefulWidget {
 

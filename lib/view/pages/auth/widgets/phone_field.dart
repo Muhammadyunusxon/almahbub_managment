@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../style/style.dart';
+import '../../../utils/Style/style.dart';
 
 class PhoneField extends StatelessWidget {
   final TextEditingController phoneController;

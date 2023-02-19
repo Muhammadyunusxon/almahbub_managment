@@ -1,4 +1,4 @@
-import 'package:almahbub_managment/constants.dart';
+import 'package:almahbub_managment/view/utils/constants.dart';
 import 'package:almahbub_managment/controller/product_controller.dart';
 import 'package:almahbub_managment/view/pages/add_screen/widgets/category_dialog.dart';
 import 'package:almahbub_managment/view/pages/add_screen/widgets/image_field.dart';
@@ -6,11 +6,12 @@ import 'package:almahbub_managment/view/pages/add_screen/widgets/my_drop_down.da
 import 'package:almahbub_managment/view/pages/add_screen/widgets/my_form_field.dart';
 import 'package:almahbub_managment/view/pages/add_screen/widgets/type_dialog.dart';
 import 'package:almahbub_managment/view/pages/general_connection_page.dart';
-import 'package:almahbub_managment/view/style/style.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+
+import '../../utils/Style/style.dart';
 
 class AddScreen extends StatefulWidget {
   final bool isUpdate;

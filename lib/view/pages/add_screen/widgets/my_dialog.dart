@@ -1,10 +1,10 @@
-import 'package:almahbub_managment/constants.dart';
+import 'package:almahbub_managment/view/utils/constants.dart';
 import 'package:almahbub_managment/controller/product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import '../../../style/style.dart';
+import '../../../utils/Style/style.dart';
 
 class MyDialog extends StatelessWidget {
   const MyDialog({Key? key}) : super(key: key);

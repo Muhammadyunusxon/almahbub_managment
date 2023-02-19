@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../constants.dart';
-import '../../../component/my_product.dart';
-import '../../../style/style.dart';
+import '../../../utils/component/my_product.dart';
+import '../../../utils/constants.dart';
+import '../../../utils/Style/style.dart';
 
 class Body extends StatelessWidget {
   const Body({super.key});

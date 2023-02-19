@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
-import '../../../constants.dart';
+import '../../utils/Style/style.dart';
+import '../../utils/constants.dart';
 import '../../../controller/local_store/local_store.dart';
-import '../../style/style.dart';
 import '../general_connection_page.dart';
 import 'login_page.dart';
 

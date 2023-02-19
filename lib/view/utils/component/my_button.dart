@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants.dart';
-import '../../controller/auth_controller.dart';
+import '../../../controller/auth_controller.dart';
+import '../constants.dart';
 import '../style/style.dart';
 
 class MyButton extends StatelessWidget {

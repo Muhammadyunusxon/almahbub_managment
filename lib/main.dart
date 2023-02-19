@@ -1,4 +1,4 @@
-import 'package:almahbub_managment/constants.dart';
+import 'package:almahbub_managment/view/utils/constants.dart';
 import 'package:almahbub_managment/controller/app_controller.dart';
 import 'package:almahbub_managment/controller/auth_controller.dart';
 import 'package:almahbub_managment/controller/chat_controller.dart';

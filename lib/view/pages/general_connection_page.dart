@@ -1,4 +1,4 @@
-import 'package:almahbub_managment/constants.dart';
+import 'package:almahbub_managment/view/utils/constants.dart';
 import 'package:almahbub_managment/view/pages/add_screen/add_screen.dart';
 import 'package:almahbub_managment/view/pages/chats/chats_page.dart';
 import 'package:almahbub_managment/view/pages/favourite/favourite_screen.dart';

@@ -1,5 +1,4 @@
-import 'package:almahbub_managment/constants.dart';
-import 'package:almahbub_managment/view/component/my_button.dart';
+import 'package:almahbub_managment/view/utils/constants.dart';
 import 'package:almahbub_managment/view/pages/auth/widgets/password_field.dart';
 import 'package:almahbub_managment/view/pages/auth/widgets/phone_field.dart';
 import 'package:almahbub_managment/view/pages/general_connection_page.dart';
@@ -7,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../controller/auth_controller.dart';
-import '../../style/style.dart';
+import '../../utils/Style/style.dart';
+import '../../utils/component/my_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

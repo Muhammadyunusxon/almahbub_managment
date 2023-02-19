@@ -1,4 +1,4 @@
-import 'package:almahbub_managment/constants.dart';
+import 'package:almahbub_managment/view/utils/constants.dart';
 import 'package:almahbub_managment/controller/home_controller.dart';
 import 'package:almahbub_managment/view/pages/home_screen/widget/app_bar.dart';
 import 'package:almahbub_managment/view/pages/home_screen/widget/body.dart';
