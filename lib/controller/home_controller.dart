@@ -86,7 +86,10 @@ class HomeController extends ChangeNotifier {
     listOfBanners.clear();
     for (var element in res.docs) {
       String docId = element.data()["productId"];
-      var res = await firestore.collection("products").doc(docId.replaceAll(" ", "")).get();
+      var res = await firestore
+          .collection("products")
+          .doc(docId.replaceAll(" ", ""))
+          .get();
       listOfBanners.add(BannerModel.fromJson(
         data: element.data(),
         dataProduct: res.data(),
@@ -171,7 +174,11 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-
+  deleteProduct(String docId) async {
+    firestore.collection("products").doc(docId).delete();
+    LocalStore.removeLikes(docId);
+    listOfProduct.removeWhere((element) => element.id == docId);
+  }
 
   bool get isTotalLoading =>
       _isLoading || _isCategoryLoading || _isProductLoading;

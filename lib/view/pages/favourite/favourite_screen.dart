@@ -59,9 +59,11 @@ class FavouriteScreen extends StatelessWidget {
                   model: state.listOfFavouriteProduct[index],
                   index: index,
                   onLike: () {
-                    context
-                        .read<HomeController>()
-                        .changeLike(index: index, isFav: true);
+                    event.changeLike(index: index, isFav: true);
+                  },
+                  onDelete: () {
+                    event.deleteProduct(
+                        state.listOfFavouriteProduct[index].id ?? "");
                   },
                 );
               }),

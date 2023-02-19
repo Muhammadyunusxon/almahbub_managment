@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import '../../../controller/local_store/local_store.dart';
 import '../../../model/user_model.dart';
@@ -21,7 +22,7 @@ class AuthController extends ChangeNotifier {
       if (res.docs.first != null) {
         return true;
       } else {
-        docId=res.docs.first.id;
+        docId = res.docs.first.id;
         return false;
       }
     } catch (e) {
@@ -46,21 +47,14 @@ class AuthController extends ChangeNotifier {
         isLoading = false;
         notifyListeners();
       } else {
-        errorText =
-        "Telefon raqam yoki parol xato";
+        errorText = "login_error".tr();
         isLoading = false;
         notifyListeners();
       }
     } catch (e) {
-      errorText =
-      "Telefon raqam yoki parol xato";
+      errorText = "login_error".tr();
       isLoading = false;
       notifyListeners();
     }
   }
-
-
-
-
-
 }

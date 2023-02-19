@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../utils/constants.dart';
@@ -24,7 +25,7 @@ class SearchFormField extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: SvgPicture.asset("assets/svg/search.svg", height: 16),
           ),
-          hintText: "Qidirish uchun yozing",
+          hintText:  "search_write".tr(),
           hintStyle: Style.textStyleNormal(
               textColor: kWhiteColor.withOpacity(0.7), size: 15),
           filled: true,

@@ -7,6 +7,7 @@ import 'package:almahbub_managment/view/pages/add_screen/widgets/my_drop_down.da
 import 'package:almahbub_managment/view/pages/add_screen/widgets/my_form_field.dart';
 import 'package:almahbub_managment/view/pages/add_screen/widgets/type_dialog.dart';
 import 'package:almahbub_managment/view/pages/general_connection_page.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -48,6 +49,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   updateProduct() {
     if (widget.product != null) {
       isUpdate = true;
+      setState(() {});
       nameController.text = widget.product!.name ?? "";
       descController.text = widget.product!.desc ?? "";
       discountController.text = (widget.product!.discount ?? "").toString();
@@ -82,14 +84,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
       appBar: AppBar(
         backgroundColor: kGreenColor,
         title: Text(
-          "Mahsulot qo'shish",
+          isUpdate ? "update".tr() : " Mahsulot qo'shish",
           style: Style.textStyleNormal(textColor: kWhiteColor, size: 18),
         ),
       ),
       body: WillPopScope(
         onWillPop: () {
           context.read<ProductController>().clearImage();
-          print("object");
           Navigator.pop(context);
           return Future(() => false);
         },
@@ -112,25 +113,25 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     18.h.verticalSpace,
                     MyFormFiled(
                       controller: nameController,
-                      title: 'Nomi',
+                      title: 'name'.tr(),
                       textInputAction: TextInputAction.next,
                     ),
                     18.h.verticalSpace,
                     MyFormFiled(
                       controller: descController,
-                      title: 'Tavsifi',
+                      title: 'desc'.tr(),
                       textInputAction: TextInputAction.next,
                     ),
                     18.h.verticalSpace,
                     MyFormFiled(
                       controller: priceController,
-                      title: 'Narxi',
+                      title: 'price'.tr(),
                       textInputAction: TextInputAction.next,
                     ),
                     18.h.verticalSpace,
                     MyFormFiled(
                       controller: discountController,
-                      title: 'Chegirma',
+                      title: 'discount'.tr(),
                       textInputAction: TextInputAction.next,
                     ),
                     18.h.verticalSpace,
@@ -143,7 +144,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                             onChanged: (value) {
                               event.setCategory(value.toString());
                             },
-                            hint: 'Kategoriyani tanlang',
+                            hint: 'change_category'.tr(),
                           ),
                         ),
                         IconButton(
@@ -173,7 +174,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           onChanged: (value) {
                             event.setType(value);
                           },
-                          hint: "O'lchov birligi",
+                          hint: "change_type".tr(),
                         )),
                         IconButton(
                           splashRadius: 26,
@@ -195,7 +196,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     18.h.verticalSpace,
                     state.addError
                         ? Text(
-                            "Xatolik mavjud",
+                            "is_error".tr(),
                             style: Style.textStyleNormal(
                                 textColor: Style.redColor),
                           )
@@ -233,7 +234,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                 ))
                               : Center(
                                   child: Text(
-                                    "Save",
+                                    isUpdate ? "update".tr() : "add".tr(),
                                     style: Style.textStyleSemiBold(
                                         textColor: kGreenColor),
                                   ),

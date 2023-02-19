@@ -1,5 +1,6 @@
 import 'package:almahbub_managment/controller/app_controller.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -82,7 +83,7 @@ class _SplashPageState extends State<SplashPage> {
                             context.watch<AppController>().isOnline != null
                         ? Center(
                             child: Text(
-                              'Internetga ulaning',
+                              'internet'.tr(),
                               style: Style.brandStyle(
                                   size: 18, textColor: kYellowColor),
                             ),

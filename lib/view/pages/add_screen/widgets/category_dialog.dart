@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:almahbub_managment/view/pages/add_screen/widgets/my_form_field.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,6 @@ import '../../../utils/constants.dart';
 import '../../../../controller/product_controller.dart';
 
 class CategoryDialog extends StatefulWidget {
-
   const CategoryDialog({Key? key}) : super(key: key);
 
   @override
@@ -25,6 +25,7 @@ class _CategoryDialogState extends State<CategoryDialog> {
     _textEditingController = TextEditingController();
     super.initState();
   }
+
   @override
   void dispose() {
     _textEditingController.dispose();
@@ -67,7 +68,8 @@ class _CategoryDialogState extends State<CategoryDialog> {
                   ),
                 ),
           18.verticalSpace,
-          MyFormFiled(controller: _textEditingController, title: "Kategoriya qo'shish"),
+          MyFormFiled(
+              controller: _textEditingController, title: "add_category".tr()),
           18.verticalSpace,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -119,7 +121,7 @@ class _CategoryDialogState extends State<CategoryDialog> {
                     color: kWhiteColor.withOpacity(0.5),
                   ),
                   child: Text(
-                    "Cencel",
+                    "cancel".tr(),
                     style: Style.textStyleSemiBold(
                         textColor: kGreenColor, size: 14),
                   ),
@@ -127,10 +129,12 @@ class _CategoryDialogState extends State<CategoryDialog> {
               ),
               GestureDetector(
                 onTap: () {
-                  event.addCategory(name: _textEditingController.text, onSuccess: () {
-                    event.clearCategoryImage();
-                    Navigator.pop(context);
-                  });
+                  event.addCategory(
+                      name: _textEditingController.text,
+                      onSuccess: () {
+                        event.clearCategoryImage();
+                        Navigator.pop(context);
+                      });
                 },
                 child: Container(
                   padding:
@@ -139,11 +143,16 @@ class _CategoryDialogState extends State<CategoryDialog> {
                     borderRadius: BorderRadius.circular(12),
                     color: kWhiteColor.withOpacity(0.5),
                   ),
-                  child:state.isSaveCategoryLoading? const CircularProgressIndicator(color: kGreenColor,strokeWidth: 3,): Text(
-                    "OK",
-                    style: Style.textStyleSemiBold(
-                        textColor: kGreenColor, size: 14),
-                  ),
+                  child: state.isSaveCategoryLoading
+                      ? const CircularProgressIndicator(
+                          color: kGreenColor,
+                          strokeWidth: 3,
+                        )
+                      : Text(
+                          "ok".tr(),
+                          style: Style.textStyleSemiBold(
+                              textColor: kGreenColor, size: 14),
+                        ),
                 ),
               )
             ],

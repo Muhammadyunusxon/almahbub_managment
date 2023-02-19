@@ -10,12 +10,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  await EasyLocalization.ensureInitialized();
+  runApp(EasyLocalization(
+      supportedLocales: const [ Locale('en', 'US'), Locale('uz', 'UZ')],
+      fallbackLocale: const Locale('uz', 'UZ'),
+      startLocale: const Locale('uz', 'UZ'),
+      path: 'assets/tr',
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -38,6 +45,10 @@ class MyApp extends StatelessWidget {
           splitScreenMode: true,
           builder: (context, child) {
             return MaterialApp(
+              locale: context.locale,
+              supportedLocales: context.supportedLocales,
+              localizationsDelegates: context.localizationDelegates,
+              title: 'Al Managment',
               theme: ThemeData(
                 primaryColor: kGreenColor,
               ),

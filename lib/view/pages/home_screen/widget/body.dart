@@ -1,5 +1,6 @@
 import 'package:almahbub_managment/controller/home_controller.dart';
 import 'package:almahbub_managment/view/pages/home_screen/widget/my_banner.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -25,14 +26,14 @@ class Body extends StatelessWidget {
             children: [
               26.horizontalSpace,
               Text(
-                'Mahsulotlar',
+                'products'.tr(),
                 style: Style.textStyleNormal(),
               ),
               const Spacer(),
               TextButton(
                 onPressed: () {},
                 child: Text(
-                  'Hammasi',
+                  'all'.tr(),
                   style: Style.textStyleNormal(
                       size: 14.5, textColor: kTextGreenColor),
                 ),
@@ -58,6 +59,10 @@ class Body extends StatelessWidget {
                     context
                         .read<HomeController>()
                         .changeLike(index: index, isFav: false);
+                }, onDelete: () {
+                  context
+                      .read<HomeController>().deleteProduct(
+                      state.listOfProduct[index].id ?? "");
                 },
                 );
               }),
@@ -65,7 +70,7 @@ class Body extends StatelessWidget {
           TextButton(
             onPressed: () {},
             child: Text(
-              "Hammasi",
+              "all".tr(),
               style:
                   Style.textStyleNormal(size: 14.5, textColor: kTextGreenColor),
             ),

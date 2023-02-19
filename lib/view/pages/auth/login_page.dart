@@ -2,6 +2,7 @@ import 'package:almahbub_managment/view/utils/constants.dart';
 import 'package:almahbub_managment/view/pages/auth/widgets/password_field.dart';
 import 'package:almahbub_managment/view/pages/auth/widgets/phone_field.dart';
 import 'package:almahbub_managment/view/pages/general_connection_page.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -55,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Text(
-                  "admin dasturiga kirish",
+                  "admin_program".tr(),
                   style:
                       Style.textStyleNormal(textColor: kWhiteColor, size: 24),
                 ),
@@ -82,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                         : const SizedBox.shrink(),
                     const Spacer(),
                     MyButton(
-                        title: "Kirish",
+                        title: "sign_in".tr(),
                         isActive: phoneController.text.isNotEmpty &&
                             passwordController.text.isNotEmpty,
                         onTap: () {
