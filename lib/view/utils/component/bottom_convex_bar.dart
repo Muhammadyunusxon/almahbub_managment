@@ -40,14 +40,14 @@ class BottomConvexBar extends StatelessWidget {
                   SvgPicture.asset("assets/svg/add.svg", color: kBrandColor)),
         ),
         TabItem(
-          icon: SvgPicture.asset("assets/svg/favourite_outline.svg"),
-          activeIcon: SvgPicture.asset("assets/svg/favourite_outline.svg",
+          icon: SvgPicture.asset("assets/svg/comment.svg"),
+          activeIcon: SvgPicture.asset("assets/svg/comment.svg",
               color: kGreenColor),
         ),
         TabItem(
-          icon: SvgPicture.asset("assets/svg/person.svg"),
+          icon: SvgPicture.asset("assets/svg/favourite_outline.svg"),
           activeIcon:
-              SvgPicture.asset("assets/svg/person.svg", color: kGreenColor),
+              SvgPicture.asset("assets/svg/favourite_outline.svg", color: kGreenColor),
         ),
       ],
       initialActiveIndex: 0,

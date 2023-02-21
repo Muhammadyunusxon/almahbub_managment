@@ -100,9 +100,9 @@ abstract class Style {
           child: prefixIcon),
       suffixIcon: suffixIcon,
       hintStyle: Style.textStyleNormal(
-          textColor: titleColor ?? kTextDarkColor.withOpacity(0.6), size: 15),
+          textColor: titleColor ?? kWhiteColor.withOpacity(0.6), size: 15),
       filled: true,
-      fillColor: fillColor ?? Colors.transparent,
+      fillColor: fillColor ?? kWhiteColor.withOpacity(0.2),
       border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: borderColor ?? Colors.transparent)),

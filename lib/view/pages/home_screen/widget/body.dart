@@ -19,12 +19,26 @@ class Body extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 18),
       child: Column(
         children: <Widget>[
-          MyBanner(
-            onTap: () {},
+          SizedBox(
+            height: 200,
+            child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                padding:
+                EdgeInsets.symmetric(horizontal: 26.w, vertical: 12.h),
+                scrollDirection: Axis.horizontal,
+                itemCount: state.listOfBanners.length,
+                itemBuilder: (context, index) {
+                  return MyBanner(
+                    model: state.listOfBanners[index],
+                    index: index,
+                    onLike: () {},
+                    onDelete: () {},
+                  );
+                }),
           ),
           Row(
             children: [
-              26.horizontalSpace,
+              26.h.horizontalSpace,
               Text(
                 'products'.tr(),
                 style: Style.textStyleNormal(),
@@ -45,25 +59,26 @@ class Body extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: state.listOfProduct.length,
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              padding:  EdgeInsets.symmetric(horizontal: 20.w),
+              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 18,
-                  mainAxisExtent: 230,
-                  mainAxisSpacing: 16),
+                  crossAxisSpacing: 18.w,
+                  mainAxisExtent: 260.h,
+                  mainAxisSpacing: 16.h),
               itemBuilder: (context, index) {
                 return MyProduct(
                   model: state.listOfProduct[index],
-                  index: index, onLike: () {
-
+                  index: index,
+                  onLike: () {
                     context
                         .read<HomeController>()
                         .changeLike(index: index, isFav: false);
-                }, onDelete: () {
-                  context
-                      .read<HomeController>().deleteProduct(
-                      state.listOfProduct[index].id ?? "");
-                },
+                  },
+                  onDelete: () {
+                    context.read<HomeController>().deleteProduct(
+                        docId: state.listOfProduct[index].id ?? "",
+                        image: state.listOfProduct[index].image ?? "");
+                  },
                 );
               }),
           12.verticalSpace,

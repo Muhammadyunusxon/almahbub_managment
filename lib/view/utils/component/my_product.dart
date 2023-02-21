@@ -14,11 +14,13 @@ class MyProduct extends StatelessWidget {
   final int index;
   final VoidCallback onLike;
   final VoidCallback onDelete;
+
   const MyProduct(
       {Key? key,
       required this.model,
       required this.index,
-      required this.onLike, required this.onDelete})
+      required this.onLike,
+      required this.onDelete})
       : super(key: key);
 
   @override
@@ -67,16 +69,20 @@ class MyProduct extends StatelessWidget {
                 ),
               ],
             ),
-            7.verticalSpace,
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Text(
-                "${model.name?.substring(0, 1).toUpperCase()}"
-                "${model.name?.substring(1).toLowerCase()}",
-                style: Style.textStyleNormal(size: 14),
+            7.h.verticalSpace,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Text(
+                  "${model.name?.substring(0, 1).toUpperCase()}"
+                  "${model.name?.substring(1).toLowerCase()}",
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: Style.textStyleNormal(size: 16.2.sp),
+                ),
               ),
             ),
-            2.verticalSpace,
+            2.h.verticalSpace,
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: Text(
@@ -84,7 +90,9 @@ class MyProduct extends StatelessWidget {
                         locale: 'uz', symbol: "currency".tr(), decimalDigits: 0)
                     .format(model.price),
                 style: Style.textStyleNormal(
-                    size: model.discount != null && model.discount != 0 ? 13 : 14,
+                    size: model.discount != null && model.discount != 0
+                        ? 13.5.sp
+                        : 15.sp,
                     isActive: model.discount != null && model.discount != 0),
               ),
             ),
@@ -93,7 +101,9 @@ class MyProduct extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Text(
                       NumberFormat.currency(
-                              locale: 'uz', symbol: "currency".tr(), decimalDigits: 0)
+                              locale: 'uz',
+                              symbol: "currency".tr(),
+                              decimalDigits: 0)
                           .format((model.price ?? 0) -
                               (((model.price ?? 0) / 100).toDouble() *
                                   model.discount!.toDouble())),
@@ -101,7 +111,7 @@ class MyProduct extends StatelessWidget {
                     ),
                   )
                 : const SizedBox.shrink(),
-            7.verticalSpace,
+            7.h.verticalSpace,
           ],
         ),
       ),

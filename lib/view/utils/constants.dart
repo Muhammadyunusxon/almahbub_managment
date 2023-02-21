@@ -7,6 +7,8 @@ const kYellowColor = Color(0xffFBA808);
 const kWhiteColor = Color(0xffffffff);
 const kTextGreenColor = Color(0xff00AD8F);
 const kBGColor = Color(0xffF8F9FA);
+const kMediumColor = Color(0xffFAFAFA);
+
 
 const kDefaultPadding = 20.0;
 

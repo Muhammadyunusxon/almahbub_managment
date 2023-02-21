@@ -63,7 +63,8 @@ class FavouriteScreen extends StatelessWidget {
                   },
                   onDelete: () {
                     event.deleteProduct(
-                        state.listOfFavouriteProduct[index].id ?? "");
+                        docId: state.listOfFavouriteProduct[index].id ?? "",
+                        image: state.listOfFavouriteProduct[index].image ?? "");
                   },
                 );
               }),

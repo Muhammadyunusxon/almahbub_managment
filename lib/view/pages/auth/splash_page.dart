@@ -1,4 +1,5 @@
 import 'package:almahbub_managment/controller/app_controller.dart';
+import 'package:almahbub_managment/view/pages/auth/widgets/splash_body.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,6 @@ import '../general_connection_page.dart';
 import 'login_page.dart';
 
 class SplashPage extends StatefulWidget {
-
   const SplashPage({Key? key}) : super(key: key);
 
   @override
@@ -32,17 +32,21 @@ class _SplashPageState extends State<SplashPage> {
   getInfo() async {
     String? docId = await LocalStore.getDocId();
     bool isOnline = await InternetConnectionChecker().hasConnection;
-    // ignore: use_build_context_synchronously
-    context.read<AppController>().changeOnline(isOnline);
+
+    if (!mounted) {
+      context.read<AppController>().changeOnline(isOnline);
+    }
     if (isOnline) {
       if (docId != null) {
         // ignore: use_build_context_synchronously
-        Navigator.pushAndRemoveUntil(context,
+        Navigator.pushAndRemoveUntil(
+            context,
             MaterialPageRoute(builder: (_) => const GeneralPage()),
             (route) => false);
       } else {
         // ignore: use_build_context_synchronously
-        Navigator.pushAndRemoveUntil(context,
+        Navigator.pushAndRemoveUntil(
+            context,
             MaterialPageRoute(builder: (_) => const LoginPage()),
             (route) => false);
       }
@@ -51,50 +55,24 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<ConnectivityResult>(
-        stream: Connectivity().onConnectivityChanged,
-        builder: (context, snapshot) {
-          WidgetsBinding.instance.addPostFrameCallback((_) async {
-            if (snapshot.hasData) {
-              context.read<AppController>().changeOnline(true);
-              getInfo();
-            } else if (snapshot.connectionState.name == "waiting") {
-            } else {
-              context.read<AppController>().changeOnline(null);
-            }
-          });
-          return Scaffold(
-            backgroundColor: kGreenColor,
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Spacer(flex: 10),
-                Center(
-                  child: Text(
-                    'AL MAHBUB',
-                    style: Style.brandStyleBold(),
-                  ),
-                ),
-                const Spacer(),
-                context.watch<AppController>().isOnline == true &&
-                        context.watch<AppController>().isOnline != null
-                    ? const SizedBox.shrink()
-                    : context.watch<AppController>().isOnline == false &&
-                            context.watch<AppController>().isOnline != null
-                        ? Center(
-                            child: Text(
-                              'internet'.tr(),
-                              style: Style.brandStyle(
-                                  size: 18, textColor: kYellowColor),
-                            ),
-                          )
-                        : const CircularProgressIndicator(
-                            color: kYellowColor,
-                          ),
-                const Spacer(flex: 10),
-              ],
-            ),
-          );
-        });
+    var event = context.read<AppController>();
+    var state = context.watch<AppController>();
+    return (state.isOnline ?? false)
+        ? SplashBody(state: state)
+        : StreamBuilder<ConnectivityResult>(
+            stream: Connectivity().onConnectivityChanged,
+            builder: (context, snapshot) {
+              WidgetsBinding.instance.addPostFrameCallback((_) async {
+                if (snapshot.hasData) {
+                  event.changeOnline(true);
+                  getInfo();
+                } else if (snapshot.hasError) {
+                  event.changeOnline(false);
+                } else {
+                  event.changeOnline(null);
+                }
+              });
+              return SplashBody(state: state);
+            });
   }
 }

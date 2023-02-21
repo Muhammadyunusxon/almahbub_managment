@@ -131,6 +131,7 @@ class ProductController extends ChangeNotifier {
       required VoidCallback onSuccess}) async {
     isSaveLoading = true;
     notifyListeners();
+    listOfType = await LocalStore.getType();
     if (isUpdate) {
       String url;
       if (imagePath.contains("https")) {
@@ -138,7 +139,6 @@ class ProductController extends ChangeNotifier {
       } else {
         url = setImageStorage();
       }
-      print(selectTypeIndex);
 
       editProduct(
         product: ProductModel(
@@ -151,12 +151,14 @@ class ProductController extends ChangeNotifier {
             isLike: false,
             id: id,
             discount: int.tryParse(discount)),
+
       );
+      onSuccess();
+      clearImage();
     } else {
       if (imagePath.isNotEmpty &&
           name.isNotEmpty &&
-          price.isNotEmpty &&
-          int.tryParse(discount) != null) {
+          price.isNotEmpty ) {
         String url = await setImageStorage();
         await firestore.collection("products").add(ProductModel(
                 name: name.toLowerCase(),
@@ -169,13 +171,16 @@ class ProductController extends ChangeNotifier {
                 discount: int.tryParse(discount),
                 id: '')
             .toJson());
+        onSuccess();
+        addError = false;
+        clearImage();
       } else {
         addError = true;
       }
     }
-    onSuccess();
-    clearImage();
-    addError = false;
+
+
+
     isSaveLoading = false;
     notifyListeners();
   }

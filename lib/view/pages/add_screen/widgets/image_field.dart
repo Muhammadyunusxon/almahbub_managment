@@ -8,10 +8,10 @@ import '../../../utils/constants.dart';
 import 'my_dialog.dart';
 
 class ImageField extends StatelessWidget {
-  final bool isUpdate;
+  final bool isOnline;
   final String imagePath;
 
-  const ImageField({Key? key, required this.isUpdate, required this.imagePath})
+  const ImageField({Key? key, required this.isOnline, required this.imagePath})
       : super(key: key);
 
   @override
@@ -39,7 +39,7 @@ class ImageField extends StatelessWidget {
             ))
         : Stack(
             children: [
-              isUpdate
+              isOnline
                   ? CustomImageNetwork(
                       image: imagePath,
                       radius: 14.r,

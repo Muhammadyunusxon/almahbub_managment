@@ -54,15 +54,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
       descController.text = widget.product!.desc ?? "";
       discountController.text = (widget.product!.discount ?? "").toString();
       priceController.text = (widget.product!.price ?? "").toString();
-      context
-          .read<ProductController>()
-          .setInitialType(widget.product!.type ?? '');
-      context
-          .read<ProductController>()
-          .getSingleCategory(widget.product!.category ?? "");
-      context
-          .read<ProductController>()
-          .setImagePath(widget.product!.image ?? '');
+      context.read<ProductController>().setInitialType(widget.product!.type ?? '');
+      context.read<ProductController>().getSingleCategory(widget.product!.category ?? "");
+      context.read<ProductController>().setImagePath(widget.product!.image ?? '');
     }
   }
 
@@ -107,7 +101,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ImageField(
-                      isUpdate: isUpdate,
+                      isOnline: state.imagePath.contains("http"),
                       imagePath: context.watch<ProductController>().imagePath,
                     ),
                     18.h.verticalSpace,
@@ -127,12 +121,16 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       controller: priceController,
                       title: 'price'.tr(),
                       textInputAction: TextInputAction.next,
+                      textInputType: TextInputType.number,
+                      formatter: true,
                     ),
                     18.h.verticalSpace,
                     MyFormFiled(
                       controller: discountController,
                       title: 'discount'.tr(),
                       textInputAction: TextInputAction.next,
+                      textInputType: TextInputType.number,
+                      formatter: true,
                     ),
                     18.h.verticalSpace,
                     Row(
