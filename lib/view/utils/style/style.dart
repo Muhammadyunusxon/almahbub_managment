@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../constants.dart';
 
 abstract class Style {
+
+
   Style._();
 
   static const mediumGreyColor = Color(0xffF1F4F3);
@@ -14,6 +16,7 @@ abstract class Style {
   static const shimmerBaseColor = Color(0x80FFFFFF);
   static const shimmerHighlightColor = Color(0x33FFFFFF);
   static const shimmerColor = Color(0x3348319D);
+  static const productBgColor = Color(0xffFFDE9B);
 
   static LinearGradient primaryGradiant = const LinearGradient(
       begin: Alignment.topLeft,

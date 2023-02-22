@@ -81,16 +81,7 @@ class Body extends StatelessWidget {
                   },
                 );
               }),
-          12.verticalSpace,
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              "all".tr(),
-              style:
-                  Style.textStyleNormal(size: 14.5, textColor: kTextGreenColor),
-            ),
-          ),
-          70.verticalSpace
+          18.h.verticalSpace
         ],
       ),
     );

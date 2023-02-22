@@ -1,8 +1,12 @@
+import 'package:almahbub_managment/domen/model/banner_model/banner_model.dart';
+import 'package:almahbub_managment/domen/model/category_model/category_model.dart';
+import 'package:almahbub_managment/domen/model/product_model/product_model.dart';
 import 'package:almahbub_managment/view/utils/constants.dart';
 import 'package:almahbub_managment/view/pages/chats/chats_page.dart';
 import 'package:almahbub_managment/view/pages/favourite/favourite_screen.dart';
 import 'package:almahbub_managment/view/pages/home_screen/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:proste_indexed_stack/proste_indexed_stack.dart';
 import '../utils/component/bottom_convex_bar.dart';
 import 'add_screen/add_screen.dart';
@@ -16,6 +20,7 @@ class GeneralPage extends StatefulWidget {
 }
 
 class _GeneralPageState extends State<GeneralPage> {
+
   int _currentIndex = 0;
   List<IndexedStackChild> listOfPage = [
     IndexedStackChild(child: const HomePage()),
@@ -24,6 +29,7 @@ class _GeneralPageState extends State<GeneralPage> {
     IndexedStackChild(child: const ChatsPage()),
     IndexedStackChild(child: const FavouriteScreen()),
   ];
+
 
   @override
   Widget build(BuildContext context) {

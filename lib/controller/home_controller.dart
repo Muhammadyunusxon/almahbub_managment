@@ -6,9 +6,12 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../domen/model/banner_model.dart';
-import '../domen/model/category_model.dart';
-import '../domen/model/product_model.dart';
+import 'package:hive/hive.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../domen/model/banner_model/banner_model.dart';
+import '../domen/model/category_model/category_model.dart';
+import '../domen/model/product_model/product_model.dart';
 
 import '../domen/model/user_model.dart';
 import '../view/utils/constants.dart';
@@ -18,7 +21,6 @@ import 'package:http/http.dart' as http;
 class HomeController extends ChangeNotifier {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
-
   UserModel? user;
   List<BannerModel> listOfBanners = [];
   List<ProductModel> listOfProduct = [];
@@ -33,34 +35,56 @@ class HomeController extends ChangeNotifier {
   bool isSingleProductLoading = false;
   ProductModel? singleProduct;
 
+  // ignore: prefer_typing_uninitialized_variables
+  var productDocument;
+  bool isLoadingProduct = false;
+  var lastVisible;
+
+  checkInternet() {
+    InternetConnectionChecker().onStatusChange.listen((event) {
+      print(event.name);
+      print(event.index);
+    });
+  }
+
   getUser() async {
     String? docId = await LocalStore.getDocId();
     var res = await firestore.collection("users").doc(docId).get();
     user = UserModel.fromJson(res.data());
   }
 
-  changeLike({required int index, bool isFav = false,bool isCategory =false}) async {
+  changeLike(
+      {required int index,
+      bool isFav = false,
+      bool isCategory = false,
+      ProductModel? product}) async {
+    if (product != null) {
+      index = listOfProduct.indexOf(product);
+      isFav = false;
+      isCategory = false;
+      notifyListeners();
+    }
     if (isFav) {
-      listOfFavouriteProduct[index].isLike = !listOfFavouriteProduct[index].isLike;
-      if(listOfFavouriteProduct[index].isLike){
+      listOfFavouriteProduct[index].isLike =
+          !listOfFavouriteProduct[index].isLike;
+      if (listOfFavouriteProduct[index].isLike) {
         LocalStore.setLikes(listOfFavouriteProduct[index].id ?? " ");
-      }else{
+      } else {
         LocalStore.removeLikes(listOfFavouriteProduct[index].id ?? " ");
       }
-    }
-    else if(isCategory){
-      listOfCategoryProduct[index].isLike = !listOfCategoryProduct[index].isLike;
-      if(listOfCategoryProduct[index].isLike){
+    } else if (isCategory) {
+      listOfCategoryProduct[index].isLike =
+          !listOfCategoryProduct[index].isLike;
+      if (listOfCategoryProduct[index].isLike) {
         LocalStore.setLikes(listOfCategoryProduct[index].id ?? " ");
-      }else{
+      } else {
         LocalStore.removeLikes(listOfCategoryProduct[index].id ?? " ");
       }
-    }
-    else {
+    } else {
       listOfProduct[index].isLike = !listOfProduct[index].isLike;
-      if(listOfProduct[index].isLike){
+      if (listOfProduct[index].isLike) {
         LocalStore.setLikes(listOfProduct[index].id ?? " ");
-      }else{
+      } else {
         LocalStore.removeLikes(listOfProduct[index].id ?? " ");
       }
     }
@@ -158,6 +182,7 @@ class HomeController extends ChangeNotifier {
     listOfProduct.clear();
     for (var element in res.docs) {
       List<String> listOfLikes = await LocalStore.getLikes();
+
       listOfProduct.add(ProductModel.fromJson(
           data: element.data(),
           isLike: listOfLikes.contains(element.id),
@@ -171,21 +196,60 @@ class HomeController extends ChangeNotifier {
       isProductLoading = true;
       notifyListeners();
     }
-    QuerySnapshot<Map<String, dynamic>> res;
     if (isLimit) {
-      res = await firestore.collection("products").limit(40).get();
+      productDocument = await firestore.collection("products").limit(8).get();
     } else {
-      res = await firestore.collection("products").get();
+      productDocument = await firestore.collection("products").get();
     }
     listOfProduct.clear();
-    for (var element in res.docs) {
+    for (var element in productDocument!.docs) {
       List<String> listOfLikes = await LocalStore.getLikes();
-      listOfProduct.add(ProductModel.fromJson(
+      ProductModel product = ProductModel.fromJson(
           data: element.data(),
           isLike: listOfLikes.contains(element.id),
-          id: element.id));
+          id: element.id);
+      listOfProduct.add(product);
     }
     isProductLoading = false;
+    notifyListeners();
+  }
+
+  getProductNew() async {
+    try {
+      var endVisible = (productDocument?.docs as List).last;
+      final res = await firestore
+          .collection("products")
+          .startAfterDocument(endVisible)
+          .limit(4)
+          .get();
+      if (endVisible.id == res.docs[(res.size ?? 1) - 1].id) {
+        return null;
+      }
+      return res;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  getPageProduct(RefreshController controller) async {
+    var res = await getProductNew();
+    if (res == null) {
+      controller.loadNoData();
+    } else if (res.docs != null && res.docs.isNotEmpty) {
+      productDocument = res;
+      for (var element in productDocument.docs) {
+        List<String> listOfLikes = await LocalStore.getLikes();
+        ProductModel product = ProductModel.fromJson(
+            data: element.data(),
+            isLike: listOfLikes.contains(element.id),
+            id: element.id);
+        listOfProduct.add(product);
+      }
+      ;
+      controller.loadComplete();
+    } else {
+      controller.loadNoData();
+    }
     notifyListeners();
   }
 
@@ -200,16 +264,15 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  deleteProduct({required String docId,required String image}) async {
+  deleteProduct({required String docId, required String image}) async {
     print(docId);
     print(image);
-    print(image.substring(image.indexOf("productImage")+13,image.indexOf("?alt")));
-    
-   //  LocalStore.removeLikes(docId);
-   //  listOfProduct.removeWhere((element) => element.id == docId);
-   var store = FirebaseStorage.instance
-        .ref()
-        .child("productImage/$image");
+    print(image.substring(
+        image.indexOf("productImage") + 13, image.indexOf("?alt")));
+
+    //  LocalStore.removeLikes(docId);
+    //  listOfProduct.removeWhere((element) => element.id == docId);
+    var store = FirebaseStorage.instance.ref().child("productImage/$image");
 
     print(store.name);
     notifyListeners();
@@ -238,9 +301,6 @@ class HomeController extends ChangeNotifier {
     isCategoryLoading = false;
     notifyListeners();
   }
-
-
-
 
   createDynamicLink(ProductModel productModel) async {
     Fluttertoast.showToast(

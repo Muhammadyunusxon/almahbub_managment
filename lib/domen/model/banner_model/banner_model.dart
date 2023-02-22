@@ -1,8 +1,14 @@
 
-import 'package:almahbub_managment/domen/model/product_model.dart';
+import 'package:almahbub_managment/domen/model/product_model/product_model.dart';
+import 'package:hive/hive.dart';
 
-class BannerModel {
+part 'banner_model.g.dart';
+
+@HiveType(typeId: 1)
+class BannerModel extends HiveObject {
+  @HiveField(0)
   final String image;
+  @HiveField(1)
   final ProductModel product;
 
   BannerModel({required this.image, required this.product});

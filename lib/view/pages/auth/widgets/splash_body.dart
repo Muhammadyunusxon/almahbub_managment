@@ -7,8 +7,8 @@ import '../../../utils/Style/style.dart';
 // ignore: must_be_immutable
 class SplashBody extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
-  final state;
-  const SplashBody({Key? key, required this.state}) : super(key: key);
+  final bool? isOnline;
+  const SplashBody({Key? key,  required this.isOnline}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +25,9 @@ class SplashBody extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          state.isOnline == true
+          isOnline == true
               ? const SizedBox.shrink()
-              : state.isOnline == false
+              : isOnline == false
               ? Center(
             child: Text(
               'internet'.tr(),

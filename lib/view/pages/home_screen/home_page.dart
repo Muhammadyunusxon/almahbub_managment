@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+
     searchController = TextEditingController();
     _refreshController=RefreshController();
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -42,16 +43,19 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var event=context.read<HomeController>();
     return OnUnFocusTap(
       child: Scaffold(
         backgroundColor: kBGColor,
         body: SmartRefresher(
           controller: _refreshController,
           enablePullDown: true,
-          enablePullUp: false,
-          onLoading: () {},
+          enablePullUp: true,
+          onLoading: () async {
+            await event.getPageProduct(_refreshController);
+          },
           onRefresh: () async {
-            context.read<HomeController>()..getProduct(isRefresh: true)..getBanners();
+            event.getPageProduct(_refreshController);
             _refreshController.refreshCompleted();
           },
           child: CustomScrollView(
@@ -70,9 +74,9 @@ class _HomePageState extends State<HomePage> {
                     controller: searchController,
                     onchange: (v) {
                       if (v != null && v.isNotEmpty) {
-                        context.read<HomeController>().searchProduct(v);
+                        event.searchProduct(v);
                       } else {
-                        context.read<HomeController>().getProduct(isLimit: true);
+                        event.getProduct(isLimit: true);
                       }
                     },
                   ),

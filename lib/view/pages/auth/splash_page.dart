@@ -1,14 +1,16 @@
 import 'package:almahbub_managment/controller/app_controller.dart';
+import 'package:almahbub_managment/controller/home_controller.dart';
 import 'package:almahbub_managment/view/pages/auth/widgets/splash_body.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
-import '../../utils/Style/style.dart';
-import '../../utils/constants.dart';
 import '../../../controller/local_store/local_store.dart';
+import '../../../domen/model/banner_model/banner_model.dart';
+import '../../../domen/model/category_model/category_model.dart';
+import '../../../domen/model/product_model/product_model.dart';
 import '../general_connection_page.dart';
 import 'login_page.dart';
 
@@ -20,59 +22,91 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  int internetChanged = 0;
+
   @override
   void initState() {
     FlutterNativeSplash.remove();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      getInfo();
-    });
+    Hive.registerAdapter(ProductModelAdapter());
+    Hive.registerAdapter(BannerModelAdapter());
+    Hive.registerAdapter(CategoryModelAdapter());
+    checking();
     super.initState();
+
   }
 
-  getInfo() async {
-    String? docId = await LocalStore.getDocId();
-    bool isOnline = await InternetConnectionChecker().hasConnection;
+  checking() async {
+    // ignore: use_build_context_synchronously
+    InternetConnectionChecker().onStatusChange.listen((status) async {
+      debugPrint(status.toString());
+      switch (status) {
+        case InternetConnectionStatus.connected:
+          if (internetChanged == 1) {
+            final snackBar = SnackBar(
+              elevation: 0,
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: Colors.transparent,
+              content: AwesomeSnackbarContent(
+                title: 'Internet is back ',
+                message: 'Great, your internet connection is restored.',
+                contentType: ContentType.success,
+              ),
+            );
 
-    if (!mounted) {
-      context.read<AppController>().changeOnline(isOnline);
-    }
-    if (isOnline) {
-      if (docId != null) {
-        // ignore: use_build_context_synchronously
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (_) => const GeneralPage()),
-            (route) => false);
-      } else {
-        // ignore: use_build_context_synchronously
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (_) => const LoginPage()),
-            (route) => false);
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(snackBar);
+            setState(() {
+              internetChanged = 0;
+            });
+          }
+          goNavigator();
+          break;
+        case InternetConnectionStatus.disconnected:
+          setState(() {
+            internetChanged++;
+          });
+
+          final snackBar = SnackBar(
+            elevation: 0,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.transparent,
+            content: AwesomeSnackbarContent(
+              title: 'No Internet Connection',
+              message: 'Please check your internet.',
+              contentType: ContentType.failure,
+            ),
+          );
+
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(snackBar);
+
+          // redirectWhenInternetNotAvailable();
+          break;
       }
+    });
+  }
+
+  goNavigator() async {
+    String? docId = await LocalStore.getDocId();
+    if (docId != null) {
+      // ignore: use_build_context_synchronously
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (_) => const GeneralPage()),
+          (route) => false);
+    } else {
+      // ignore: use_build_context_synchronously
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (_) => const LoginPage()),
+          (route) => false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    var event = context.read<AppController>();
-    var state = context.watch<AppController>();
-    return (state.isOnline ?? false)
-        ? SplashBody(state: state)
-        : StreamBuilder<ConnectivityResult>(
-            stream: Connectivity().onConnectivityChanged,
-            builder: (context, snapshot) {
-              WidgetsBinding.instance.addPostFrameCallback((_) async {
-                if (snapshot.hasData) {
-                  event.changeOnline(true);
-                  getInfo();
-                } else if (snapshot.hasError) {
-                  event.changeOnline(false);
-                } else {
-                  event.changeOnline(null);
-                }
-              });
-              return SplashBody(state: state);
-            });
+    return const SplashBody(isOnline: null);
   }
 }
