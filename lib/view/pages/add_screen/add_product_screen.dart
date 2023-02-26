@@ -1,4 +1,4 @@
-import 'package:almahbub_managment/domen/model/product_model/product_model.dart';
+import 'package:almahbub_managment/domen/model/product_model.dart';
 import 'package:almahbub_managment/view/utils/constants.dart';
 import 'package:almahbub_managment/controller/product_controller.dart';
 import 'package:almahbub_managment/view/pages/add_screen/widgets/category_dialog.dart';

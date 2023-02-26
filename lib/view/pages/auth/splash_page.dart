@@ -8,9 +8,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import '../../../controller/local_store/local_store.dart';
-import '../../../domen/model/banner_model/banner_model.dart';
-import '../../../domen/model/category_model/category_model.dart';
-import '../../../domen/model/product_model/product_model.dart';
+import '../../../domen/model/banner_model.dart';
+import '../../../domen/model/category_model.dart';
+import '../../../domen/model/product_model.dart';
 import '../general_connection_page.dart';
 import 'login_page.dart';
 
@@ -27,12 +27,8 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     FlutterNativeSplash.remove();
-    Hive.registerAdapter(ProductModelAdapter());
-    Hive.registerAdapter(BannerModelAdapter());
-    Hive.registerAdapter(CategoryModelAdapter());
     checking();
     super.initState();
-
   }
 
   checking() async {
@@ -83,7 +79,7 @@ class _SplashPageState extends State<SplashPage> {
             ..showSnackBar(snackBar);
 
           // redirectWhenInternetNotAvailable();
-          
+
           break;
       }
     });
@@ -93,7 +89,9 @@ class _SplashPageState extends State<SplashPage> {
     String? docId = await LocalStore.getDocId();
     if (docId != null) {
       // ignore: use_build_context_synchronously
-      context.read<HomeController>()..getBanners() ..getProduct();
+      context.read<HomeController>()
+        ..getBanners()
+        ..getProduct();
       // ignore: use_build_context_synchronously
       Navigator.pushAndRemoveUntil(
           context,

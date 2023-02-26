@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../controller/home_controller.dart';
-import '../../../domen/model/product_model/product_model.dart';
+import '../../../domen/model/product_model.dart';
 import '../../utils/Style/style.dart';
 import '../../utils/component/my_image_network.dart';
 import '../../utils/constants.dart';

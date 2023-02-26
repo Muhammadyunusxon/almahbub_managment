@@ -1,26 +1,16 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'product_model.g.dart';
 
-@HiveType(typeId: 0)
+
 class ProductModel extends HiveObject {
-  @HiveField(0)
   final String? name;
-  @HiveField(1)
   final String? desc;
-  @HiveField(2)
   final String? image;
-  @HiveField(3)
   final num? price;
-  @HiveField(4)
   final String? category;
-  @HiveField(5)
   final String? type;
-  @HiveField(6)
   final int? discount;
-  @HiveField(7)
   final String? id;
-  @HiveField(8)
   bool isLike;
 
   ProductModel(

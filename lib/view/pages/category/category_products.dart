@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../controller/home_controller.dart';
-import '../../../domen/model/category_model/category_model.dart';
+import '../../../domen/model/category_model.dart';
 import '../../utils/component/my_product.dart';
 import '../../utils/constants.dart';
 

@@ -6,12 +6,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hive/hive.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../domen/model/banner_model/banner_model.dart';
-import '../domen/model/category_model/category_model.dart';
-import '../domen/model/product_model/product_model.dart';
+import '../domen/model/banner_model.dart';
+import '../domen/model/category_model.dart';
+import '../domen/model/product_model.dart';
 
 import '../domen/model/user_model.dart';
 import '../view/utils/constants.dart';
@@ -49,8 +48,6 @@ class HomeController extends ChangeNotifier {
 
   checkInternet() {
     InternetConnectionChecker().onStatusChange.listen((event) {
-      print(event.name);
-      print(event.index);
     });
   }
 
@@ -261,7 +258,6 @@ class HomeController extends ChangeNotifier {
             id: element.id);
         listOfProduct.add(product);
       }
-      ;
       controller.loadComplete();
     } else {
       controller.loadNoData();

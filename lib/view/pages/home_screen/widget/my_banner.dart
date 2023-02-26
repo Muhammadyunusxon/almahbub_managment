@@ -2,7 +2,7 @@ import 'package:almahbub_managment/controller/home_controller.dart';
 import 'package:almahbub_managment/view/utils/component/tap_holder.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../domen/model/banner_model/banner_model.dart';
+import '../../../../domen/model/banner_model.dart';
 import '../../../utils/component/my_image_network.dart';
 import '../../../utils/constants.dart';
 
