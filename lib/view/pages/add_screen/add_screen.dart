@@ -18,8 +18,10 @@ class AddScreen extends StatelessWidget {
       child: GridView(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisExtent: 100,
-            crossAxisCount: 1, crossAxisSpacing: 12, mainAxisSpacing: 12),
+            mainAxisExtent: 100,
+            crossAxisCount: 1,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12),
         children: [
           Container(
             padding: const EdgeInsets.symmetric(vertical: 12),
@@ -31,20 +33,20 @@ class AddScreen extends StatelessWidget {
                 child: Text("Banner qo'shish", style: Style.textStyleNormal())),
           ),
           GestureDetector(
-            onTap: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (_)=> AddProductScreen()));
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const AddProductScreen()));
             },
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: BoxDecoration(
-                  color:
-                      Colors.primaries[Random().nextInt(Colors.primaries.length)],
+                  color: Colors
+                      .primaries[Random().nextInt(Colors.primaries.length)],
                   borderRadius: BorderRadius.circular(16.r)),
               child: Center(
-                  child: Text(
-                "Mahsulot qo'shish",
-                style: Style.textStyleNormal(),
-              )),
+                child:
+                    Text("Mahsulot qo'shish", style: Style.textStyleNormal()),
+              ),
             ),
           ),
           Container(

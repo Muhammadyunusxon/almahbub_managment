@@ -3,7 +3,7 @@ import 'package:almahbub_managment/view/utils/constants.dart';
 import 'package:almahbub_managment/controller/home_controller.dart';
 import 'package:almahbub_managment/view/pages/home_screen/widget/app_bar.dart';
 import 'package:almahbub_managment/view/pages/home_screen/widget/body.dart';
-import 'package:almahbub_managment/view/pages/home_screen/widget/search_form_field.dart';
+import 'package:almahbub_managment/view/utils/component/search_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -19,17 +19,12 @@ class _HomePageState extends State<HomePage> {
   late TextEditingController searchController;
   late RefreshController _refreshController;
 
-
   @override
   void initState() {
-
     searchController = TextEditingController();
-    _refreshController=RefreshController();
+    _refreshController = RefreshController();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<HomeController>()
-        ..getProduct()
-        ..getCategory()
-        ..getBanners();
+      context.read<HomeController>().getCategory();
     });
 
     super.initState();
@@ -43,7 +38,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var event=context.read<HomeController>();
+    var event = context.read<HomeController>();
     return OnUnFocusTap(
       child: Scaffold(
         backgroundColor: kBGColor,
@@ -86,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                   expandedTitleScale: 1,
                 ),
               ),
-              SliverToBoxAdapter(
+              const SliverToBoxAdapter(
                 child: Body(),
               ),
             ],

@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../../../controller/home_controller.dart';
 import '../../utils/Style/style.dart';
 import '../../utils/component/my_image_network.dart';
-import '../home_screen/widget/search_form_field.dart';
+import '../../utils/component/search_form_field.dart';
 import 'category_products.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -63,7 +63,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    mainAxisExtent: 126.h,
+                    mainAxisExtent: 126,
                     mainAxisSpacing: 12.h,
                     crossAxisSpacing: 12.w),
                 itemBuilder: (context, index) {
@@ -80,10 +80,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           margin: EdgeInsets.all(8.r),
                           width: SizeConfig.screenWidth! / 3,
                           height: SizeConfig.screenWidth! / 3 - 42,
-                          padding: const EdgeInsets.all(6),
+                          padding: EdgeInsets.all(6.r),
                           decoration: BoxDecoration(
                               color: const Color(0xff3A860A).withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(10)),
+                              borderRadius: BorderRadius.circular(10.r)),
                           child: Column(
                             children: [
                               state.listOfCategory[index].image == null
@@ -93,7 +93,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                           state.listOfCategory[index].image ??
                                               "",
                                       boxFit: BoxFit.contain,
-                                      height: SizeConfig.screenWidth! / 3 - 60,
+                                      height:
+                                          SizeConfig.screenWidth! / 3 - 60,
                                       width: SizeConfig.screenWidth! / 3 - 60,
                                     )
                             ],
@@ -101,6 +102,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         ),
                         Text(
                           state.listOfCategory[index].name ?? "",
+                          style: Style.textStyleNormal(size: 15.5.sp),
                         )
                       ],
                     ),

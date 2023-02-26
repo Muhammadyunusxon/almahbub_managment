@@ -46,7 +46,10 @@ class _ProductPageState extends State<ProductPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kGreenColor,
-        title: const Text("Product"),
+        title: Text(
+          "Product",
+          style: Style.brandStyle(textColor: kWhiteColor, size: 20),
+        ),
         actions: [
           IconButton(
             icon: SvgPicture.asset("assets/svg/share.svg",
@@ -66,15 +69,14 @@ class _ProductPageState extends State<ProductPage> {
           : ListView(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50.w),
+                  padding: EdgeInsets.symmetric(horizontal: 28.w),
                   child: Stack(
                     children: [
                       CustomImageNetwork(
                         height: (SizeConfig.screenWidth ?? 100),
                         image: state.singleProduct?.image ?? "",
-                        radius: 0,
-                        width: double.infinity
-                        ,
+                        width: double.infinity,
+                        boxFit: BoxFit.contain,
                       ),
                       Positioned(
                           right: 20,
@@ -91,9 +93,7 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                 ),
                 Text(
-                  (state.singleProduct?.name
-                              ?.substring(0, 1)
-                              .toUpperCase() ??
+                  (state.singleProduct?.name?.substring(0, 1).toUpperCase() ??
                           "") +
                       (state.singleProduct?.name?.substring(1) ?? ""),
                   style: Style.textStyleSemiBold(size: 22),
@@ -119,16 +119,14 @@ class _ProductPageState extends State<ProductPage> {
                 state.singleProduct?.discount != null &&
                         state.singleProduct?.discount != 0
                     ? Padding(
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 12),
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Text(
                           NumberFormat.currency(
                                   locale: 'uz',
                                   symbol: "currency".tr(),
                                   decimalDigits: 0)
                               .format((state.singleProduct?.price ?? 0) -
-                                  (((state.singleProduct?.price ?? 0) /
-                                              100)
+                                  (((state.singleProduct?.price ?? 0) / 100)
                                           .toDouble() *
                                       (state.singleProduct?.discount ?? 0)
                                           .toDouble())),

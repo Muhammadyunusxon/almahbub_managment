@@ -83,6 +83,7 @@ class _SplashPageState extends State<SplashPage> {
             ..showSnackBar(snackBar);
 
           // redirectWhenInternetNotAvailable();
+          
           break;
       }
     });
@@ -91,6 +92,8 @@ class _SplashPageState extends State<SplashPage> {
   goNavigator() async {
     String? docId = await LocalStore.getDocId();
     if (docId != null) {
+      // ignore: use_build_context_synchronously
+      context.read<HomeController>()..getBanners() ..getProduct();
       // ignore: use_build_context_synchronously
       Navigator.pushAndRemoveUntil(
           context,

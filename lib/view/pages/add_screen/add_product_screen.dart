@@ -79,7 +79,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         backgroundColor: kGreenColor,
         title: Text(
           isUpdate ? "update".tr() : " Mahsulot qo'shish",
-          style: Style.textStyleNormal(textColor: kWhiteColor, size: 18),
+          style: Style.brandStyle(textColor: kWhiteColor, size: 20),
         ),
       ),
       body: WillPopScope(

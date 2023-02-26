@@ -31,9 +31,16 @@ class HomeController extends ChangeNotifier {
   bool setFilter = false;
   bool isCategoryLoading = true;
   bool isProductLoading = true;
-  List<CategoryModel> listOfSelectIndex = [];
+  List<CategoryModel> listOfSelectCategory = [];
   bool isSingleProductLoading = false;
   ProductModel? singleProduct;
+
+  List<String> listOfPrice = [
+    "\$",
+    "\$\$",
+    "\$\$\$",
+  ];
+  int selectPrice = -1;
 
   // ignore: prefer_typing_uninitialized_variables
   var productDocument;
@@ -91,19 +98,28 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  changeIndex(CategoryModel model) async {
-    if (listOfSelectIndex.contains(model)) {
-      listOfSelectIndex.remove(model);
-      getProduct(isLimit: false);
+   changePriceIndex(int index) {
+    if (selectPrice == index) {
+      selectPrice = -1;
+    } else {
+      selectPrice = index;
+    }
+    notifyListeners();
+  }
+
+  changeCategoryIndex(CategoryModel model) async {
+    if (listOfSelectCategory.contains(model)) {
+      listOfSelectCategory.remove(model);
+      getProduct();
     } else {
       setFilter = true;
-      listOfSelectIndex.add(model);
+      listOfSelectCategory.add(model);
       listOfProduct.clear();
       List<String> listOfLikes = await LocalStore.getLikes();
-      for (int i = 0; i < listOfSelectIndex.length; i++) {
+      for (int i = 0; i < listOfSelectCategory.length; i++) {
         var res = await firestore
             .collection("products")
-            .where("category", isEqualTo: listOfSelectIndex[i].id)
+            .where("category", isEqualTo: listOfSelectCategory[i].id)
             .get();
         for (var element in res.docs) {
           listOfProduct.add(ProductModel.fromJson(
@@ -113,7 +129,7 @@ class HomeController extends ChangeNotifier {
         }
       }
     }
-    if (listOfSelectIndex.isEmpty) {
+    if (listOfSelectCategory.isEmpty) {
       setFilter = false;
     }
 

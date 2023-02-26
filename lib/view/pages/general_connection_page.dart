@@ -36,7 +36,6 @@ class _GeneralPageState extends State<GeneralPage> {
     return Scaffold(
       backgroundColor: kGreenColor,
       resizeToAvoidBottomInset: false,
-      extendBody: true,
       body: SafeArea(
         bottom:false,
         child: ProsteIndexedStack(

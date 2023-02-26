@@ -20,6 +20,7 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp();
   await Hive.initFlutter();
+
   await EasyLocalization.ensureInitialized();
   runApp(EasyLocalization(
       supportedLocales: const [Locale('en', 'US'), Locale('uz', 'UZ')],
@@ -52,11 +53,13 @@ class MyApp extends StatelessWidget {
               headerBuilder: () => const MaterialClassicHeader(
                   backgroundColor: kWhiteColor, color: kBrandColor),
               child: MaterialApp(
+
                 locale: context.locale,
                 supportedLocales: context.supportedLocales,
                 localizationsDelegates: context.localizationDelegates,
                 title: 'Al Managment',
                 theme: ThemeData(
+                  // useMaterial3: true,
                   primaryColor: kGreenColor,
                 ),
                 debugShowCheckedModeBanner: false,
