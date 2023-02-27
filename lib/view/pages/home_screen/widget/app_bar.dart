@@ -1,4 +1,5 @@
 import 'package:almahbub_managment/view/pages/general_connection_page.dart';
+import 'package:almahbub_managment/view/pages/home_screen/location_map.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -72,7 +73,7 @@ class MyAppBar extends StatelessWidget {
           5.verticalSpace,
           GestureDetector(
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Placeholder()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (_)=>YandexMLocationMapage()));
               },
               child: Row(
                 children: [

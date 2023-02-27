@@ -1,8 +1,7 @@
-import 'package:hive_flutter/hive_flutter.dart';
 
 
 
-class ProductModel extends HiveObject {
+class ProductModel {
   final String? name;
   final String? desc;
   final String? image;
