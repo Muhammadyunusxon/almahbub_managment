@@ -1,4 +1,4 @@
-import 'package:almahbub_managment/presentation/pages/auth/splash_page.dart';
+import 'package:almahbub_managment/presentation/routes/app_router.gr.dart';
 import 'package:almahbub_managment/presentation/utils/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,9 @@ import '../application/location_map_controller.dart';
 import '../application/product_controller.dart';
 
 class AppWidget extends StatelessWidget {
-  const AppWidget({super.key});
+  final _appRouter = AppRouter();
+
+  AppWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,17 +37,18 @@ class AppWidget extends StatelessWidget {
             return RefreshConfiguration(
               headerBuilder: () => const MaterialClassicHeader(
                   backgroundColor: kWhiteColor, color: kBrandColor),
-              child: MaterialApp(
+              child: MaterialApp.router(
                 locale: context.locale,
                 supportedLocales: context.supportedLocales,
                 localizationsDelegates: context.localizationDelegates,
                 title: 'Al Managment',
                 theme: ThemeData(
-                  // useMaterial3: true,
+                  useMaterial3: true,
                   primaryColor: kGreenColor,
                 ),
                 debugShowCheckedModeBanner: false,
-                home: const SplashPage(),
+                routerDelegate: _appRouter.delegate(),
+                routeInformationParser: _appRouter.defaultRouteParser(),
               ),
             );
           }),

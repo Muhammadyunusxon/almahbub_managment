@@ -15,7 +15,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-# Tools
+  # Tools
   cupertino_icons: ^1.0.2
   easy_localization: ^3.0.0
   flutter_native_splash: ^2.2.17
@@ -41,9 +41,16 @@ dependencies:
   focused_menu: ^1.0.5
   flutter_file_downloader: ^1.1.0+1
   permission_handler: ^10.2.0
+  auto_route: ^5.0.4
 
 
-#  Internet
+  # Animations
+  top_snackbar_flutter: ^2.1.1
+  rive: ^0.9.1
+  lottie: ^2.2.0
+  flutter_staggered_animations: ^1.0.0
+
+  #  Internet
   http: ^0.13.5
   connectivity_plus: ^3.0.2
   internet_connection_checker: ^1.0.0+1
@@ -67,6 +74,7 @@ dependencies:
 
 
 
+
   #  Firebase
   firebase_core: ^2.4.1
   cloud_firestore: ^4.3.1
@@ -74,6 +82,7 @@ dependencies:
   firebase_dynamic_links: ^5.0.11
 
 dev_dependencies:
+  auto_route_generator: ^5.0.3
   build_runner: ^2.3.3
   hive_generator: ^2.0.0
   flutter_test:
@@ -85,11 +94,12 @@ flutter:
   uses-material-design: true
 
   assets:
-     - assets/
-     - assets/images/
-     - assets/svg/
-     - assets/tr/
-     - assets/types/
+    - assets/
+    - assets/images/
+    - assets/svg/
+    - assets/tr/
+    - assets/types/
+    - assets/rive/
 
 
   # To add custom fonts to your application, add a fonts section here,

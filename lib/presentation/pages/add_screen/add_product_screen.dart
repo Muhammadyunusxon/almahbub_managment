@@ -12,18 +12,18 @@ import '../../../infrastructure/model/product_model.dart';
 import '../../utils/Style/style.dart';
 import '../../utils/component/my_form_field.dart';
 import '../../utils/constants.dart';
-import '../general_connection_page.dart';
+import '../main/main_page.dart';
 
-class AddProductScreen extends StatefulWidget {
+class AddProductPage extends StatefulWidget {
   final ProductModel? product;
 
-  const AddProductScreen({Key? key, this.product}) : super(key: key);
+  const AddProductPage({Key? key, this.product}) : super(key: key);
 
   @override
-  State<AddProductScreen> createState() => _AddProductScreenState();
+  State<AddProductPage> createState() => _AddProductPageState();
 }
 
-class _AddProductScreenState extends State<AddProductScreen> {
+class _AddProductPageState extends State<AddProductPage> {
   late TextEditingController nameController;
   late TextEditingController descController;
   late TextEditingController discountController;
@@ -218,7 +218,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (_) => const GeneralPage()),
+                                      builder: (_) => const MainPage()),
                                   (route) => false);
                             },
                             isUpdate: isUpdate,

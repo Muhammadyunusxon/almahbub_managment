@@ -49,6 +49,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.10.0"
+  auto_route:
+    dependency: "direct main"
+    description:
+      name: auto_route
+      sha256: "12047baeca0e01df93165ef33275b32119d72699ab9a49dc64c20e78f586f96d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.4"
+  auto_route_generator:
+    dependency: "direct dev"
+    description:
+      name: auto_route_generator
+      sha256: de5bfbc02ae4eebb339dd90d325749ae7536e903f6513ef72b88954072d72b0e
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.3"
   awesome_snackbar_content:
     dependency: "direct main"
     description:
@@ -515,6 +531,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  flutter_staggered_animations:
+    dependency: "direct main"
+    description:
+      name: flutter_staggered_animations
+      sha256: "81d3c816c9bb0dca9e8a5d5454610e21ffb068aedb2bde49d2f8d04f75538351"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -837,6 +861,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
+  lottie:
+    dependency: "direct main"
+    description:
+      name: lottie
+      sha256: "49bbc544e44bf0c734ccda29b182e3516a12f5021ea98b206cf31a168b0f97da"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.0"
   matcher:
     dependency: transitive
     description:
@@ -1133,6 +1165,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  rive:
+    dependency: "direct main"
+    description:
+      name: rive
+      sha256: "22e3755b75f4ea4492d2fecf4fc2acf1c8d0073df39781d290a20cbfe74c3760"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.1"
   rxdart:
     dependency: transitive
     description:
@@ -1354,6 +1394,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  top_snackbar_flutter:
+    dependency: "direct main"
+    description:
+      name: top_snackbar_flutter
+      sha256: "67c7f3c82bb44c884fe8e4e42ae9a501bdc05e4a9fab0f0a2ac5ba05d83d11bf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.1"
   typed_data:
     dependency: transitive
     description:

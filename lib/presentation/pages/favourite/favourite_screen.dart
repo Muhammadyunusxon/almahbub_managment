@@ -8,8 +8,8 @@ import '../../utils/component/my_product.dart';
 import '../../utils/constants.dart';
 import '../../utils/size_config.dart';
 
-class FavouriteScreen extends StatelessWidget {
-  const FavouriteScreen({Key? key}) : super(key: key);
+class FavouritePage extends StatelessWidget {
+  const FavouritePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

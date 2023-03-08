@@ -13,7 +13,7 @@ import '../infrastructure/service/local_store/local_store.dart';
 import '../presentation/utils/constants.dart';
 
 class HomeController extends ChangeNotifier {
-  final FirebaseRepo firebaseRepo = FirebaseRepo();
+  FirebaseRepo firebaseRepo = FirebaseRepo();
 
   UserModel? user;
   List<BannerModel> listOfBanners = [];
@@ -136,13 +136,13 @@ class HomeController extends ChangeNotifier {
   getCategory() async {
     isCategoryLoading = true;
     notifyListeners();
-    listOfCategory = await getCategory();
+    listOfCategory = await firebaseRepo.getCategory();
     isCategoryLoading = false;
     notifyListeners();
   }
 
   searchCategory(String name) async {
-   listOfCategory= await firebaseRepo.searchCategory(name);
+    listOfCategory = await firebaseRepo.searchCategory(name);
     notifyListeners();
   }
 
@@ -151,12 +151,14 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  getProduct({bool isLimit = true, bool isRefresh = false}) async {
+  getProduct({bool isRefresh = false}) async {
     if (!isRefresh) {
       isProductLoading = true;
       notifyListeners();
     }
-    productDocument = await firebaseRepo.getProductDocument(isLimit: isLimit);
+
+    productDocument = await firebaseRepo.getProductDocument();
+
     listOfProduct =
         await firebaseRepo.getProduct(productDocument: productDocument);
 

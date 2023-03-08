@@ -1,29 +1,32 @@
 import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 import '../infrastructure/model/route_model.dart';
 import '../infrastructure/repository/map_repo.dart';
-
-
 
 class LocationMapController extends ChangeNotifier {
   List<LatLng> list = [];
   final AppRepo appRepo = AppRepo();
   String? searchText;
   bool isLoading = false;
+  Point? currentLocation;
 
-
-  search(String searchText){
+  search(String searchText) {
     this.searchText = searchText;
     notifyListeners();
   }
 
+  init() async {
+    Position data = await determinePosition();
+     currentLocation = Point(latitude: data.latitude, longitude: data.longitude);
+    notifyListeners();
+  }
 
   getRout(BuildContext context, LatLng start, LatLng end) async {
     DrawRouting? routing =
-    await appRepo.getRout(context: context, start: start, end: end);
+        await appRepo.getRout(context: context, start: start, end: end);
 
     List ls = routing?.features[0].geometry.coordinates ?? [];
     for (int i = 0; i < ls.length; i++) {

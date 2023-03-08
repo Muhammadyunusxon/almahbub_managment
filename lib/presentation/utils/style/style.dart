@@ -4,8 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../constants.dart';
 
 abstract class Style {
-
-
   Style._();
 
   static const mediumGreyColor = Color(0xffF1F4F3);
@@ -17,6 +15,7 @@ abstract class Style {
   static const shimmerHighlightColor = Color(0x33FFFFFF);
   static const shimmerColor = Color(0x3348319D);
   static const productBgColor = Color(0xffFFDE9B);
+  static const blackColor = Colors.black;
 
   static LinearGradient primaryGradiant = const LinearGradient(
       begin: Alignment.topLeft,
@@ -40,7 +39,8 @@ abstract class Style {
     );
   }
 
-  static textStyleSemiBold({double size = 16, Color textColor = kTextDarkColor}) {
+  static textStyleSemiBold(
+      {double size = 16, Color textColor = kTextDarkColor}) {
     return GoogleFonts.manrope(
       fontSize: size,
       color: textColor,
@@ -58,7 +58,8 @@ abstract class Style {
     );
   }
 
-  static textStyleRegular({double size = 16, Color textColor = kTextDarkColor}) {
+  static textStyleRegular(
+      {double size = 16, Color textColor = kTextDarkColor}) {
     return GoogleFonts.manrope(
       fontSize: size,
       color: textColor,
@@ -87,13 +88,14 @@ abstract class Style {
     return GoogleFonts.sourceSansPro(
         fontSize: size, fontWeight: FontWeight.w600, color: textColor);
   }
+
   static myDecoration(
       {required String title,
-        Color? titleColor,
-        Color? fillColor,
-        Widget? prefixIcon,
-        Widget? suffixIcon,
-        Color? borderColor}) {
+      Color? titleColor,
+      Color? fillColor,
+      Widget? prefixIcon,
+      Widget? suffixIcon,
+      Color? borderColor}) {
     return InputDecoration(
       contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
       prefixIconConstraints: const BoxConstraints(maxHeight: 18),

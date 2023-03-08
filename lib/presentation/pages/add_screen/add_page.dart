@@ -7,8 +7,8 @@ import '../../utils/Style/style.dart';
 import '../../utils/constants.dart';
 import 'add_product_screen.dart';
 
-class AddScreen extends StatelessWidget {
-  const AddScreen({Key? key}) : super(key: key);
+class AddPage extends StatelessWidget {
+  const AddPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class AddScreen extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const AddProductScreen()));
+                  MaterialPageRoute(builder: (_) => const AddProductPage()));
             },
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 12),

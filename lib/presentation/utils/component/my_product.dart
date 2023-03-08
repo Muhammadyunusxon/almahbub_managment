@@ -29,7 +29,7 @@ class MyProduct extends StatelessWidget {
       onDelete: onDelete,
       onEdit: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (_) => AddProductScreen(product: model)));
+            builder: (_) => AddProductPage(product: model)));
       },
       child: GestureDetector(
         onTap: () {

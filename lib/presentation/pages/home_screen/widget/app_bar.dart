@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../utils/constants.dart';
 import '../../../utils/Style/style.dart';
-import '../../general_connection_page.dart';
+import '../../main/main_page.dart';
 import '../location_map.dart';
 
 class MyAppBar extends StatelessWidget {
@@ -14,9 +14,9 @@ class MyAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 175,
+      height: 165,
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 24),
+      padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 24),
       color: kGreenColor,
       child: Column(
         children: [
@@ -38,8 +38,7 @@ class MyAppBar extends StatelessWidget {
                       onPressed: () {
                         context.setLocale(const Locale('en', 'US'));
                         Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (_) => const GeneralPage()),
+                            MaterialPageRoute(builder: (_) => const MainPage()),
                             (route) => false);
                       },
                       child: Text(
@@ -50,8 +49,7 @@ class MyAppBar extends StatelessWidget {
                       onPressed: () {
                         context.setLocale(const Locale('uz', 'UZ'));
                         Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (_) => const GeneralPage()),
+                            MaterialPageRoute(builder: (_) => const MainPage()),
                             (route) => false);
                       },
                       child: Text(
@@ -73,8 +71,8 @@ class MyAppBar extends StatelessWidget {
           5.verticalSpace,
           GestureDetector(
               onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const YandexLocationMapPage()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => const YandexLocationMapPage()));
               },
               child: Row(
                 children: [

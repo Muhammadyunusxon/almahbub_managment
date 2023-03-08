@@ -10,14 +10,14 @@ import '../../utils/constants.dart';
 import '../../utils/size_config.dart';
 import 'category_products.dart';
 
-class CategoryScreen extends StatefulWidget {
-  const CategoryScreen({Key? key}) : super(key: key);
+class CategoryPage extends StatefulWidget {
+  const CategoryPage({Key? key}) : super(key: key);
 
   @override
-  State<CategoryScreen> createState() => _CategoryScreenState();
+  State<CategoryPage> createState() => _CategoryPageState();
 }
 
-class _CategoryScreenState extends State<CategoryScreen> {
+class _CategoryPageState extends State<CategoryPage> {
   final TextEditingController search = TextEditingController();
 
   @override

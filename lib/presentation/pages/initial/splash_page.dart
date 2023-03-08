@@ -1,13 +1,12 @@
-import 'package:almahbub_managment/presentation/pages/auth/widgets/splash_body.dart';
+import 'package:almahbub_managment/presentation/routes/app_router.gr.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:provider/provider.dart';
-import '../../../application/home_controller.dart';
 import '../../../infrastructure/service/local_store/local_store.dart';
-import '../general_connection_page.dart';
-import 'login_page.dart';
+import '../../utils/Style/style.dart';
+import '../../utils/constants.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -21,8 +20,8 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   void initState() {
+    goNavigator();
     FlutterNativeSplash.remove();
-    checking();
     super.initState();
   }
 
@@ -84,25 +83,34 @@ class _SplashPageState extends State<SplashPage> {
     String? docId = await LocalStore.getDocId();
     if (docId != null) {
       // ignore: use_build_context_synchronously
-      context.read<HomeController>()
-        ..getBanners()
-        ..getProduct();
-      // ignore: use_build_context_synchronously
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (_) => const GeneralPage()),
-          (route) => false);
+      context.replaceRoute(const MainRoute());
+
     } else {
       // ignore: use_build_context_synchronously
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (_) => const LoginPage()),
-          (route) => false);
+      context.replaceRoute(const LoginRoute());
+      // Navigator.pushAndRemoveUntil(context,
+      //     MaterialPageRoute(builder: (_) => const MainPage()), (route) => false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return const SplashBody(isOnline: null);
+    return Scaffold(
+      backgroundColor: kGreenColor,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Spacer(flex: 10),
+          Center(
+            child: Text(
+              'AL MAHBUB',
+              style: Style.brandStyleBold(),
+            ),
+          ),
+          const Spacer(),
+          const Spacer(flex: 10),
+        ],
+      ),
+    );
   }
 }

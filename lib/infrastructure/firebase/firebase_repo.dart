@@ -13,8 +13,8 @@ import '../service/local_store/local_store.dart';
 import 'package:http/http.dart' as http;
 
 class FirebaseRepo {
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
 
   checkUser({required String phone, required String password}) async {
     try {
@@ -50,7 +50,7 @@ class FirebaseRepo {
       var response = await firestore.collection("banner").get();
       List<BannerModel> list = [];
       List<String> listOfLikes = await LocalStore.getLikes();
-      for (int i = 0; i < response.docs.length; i++) {
+      for (int i = 0; i < response.docs.length;) {
         list.add(BannerModel.fromJson(
           data: response.docs[i].data(),
           dataProduct:
@@ -135,15 +135,12 @@ class FirebaseRepo {
     }
   }
 
-  getProductDocument({required bool isLimit}) async {
+  getProductDocument() async {
     try {
-      if (isLimit) {
-        return await firestore.collection("products").limit(8).get();
-      } else {
-        return await firestore.collection("products").get();
-      }
+      var doc = await firestore.collection("products").limit(8).get();
+      return doc;
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint("$e");
     }
   }
 

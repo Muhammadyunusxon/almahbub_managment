@@ -55,7 +55,7 @@ class SearchFormField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.r),
               ),
               child: SvgPicture.asset(
-                "assets/svg/Filter.svg",
+                "assets/svg/filter.svg",
                 color: kWhiteColor,
                 height: 22.r,
               )),

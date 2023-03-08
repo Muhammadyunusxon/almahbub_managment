@@ -8,7 +8,7 @@ import '../../../application/auth_controller.dart';
 import '../../utils/Style/style.dart';
 import '../../utils/component/my_button.dart';
 import '../../utils/constants.dart';
-import '../general_connection_page.dart';
+import '../main/main_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -95,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => const GeneralPage()),
+                                    builder: (_) => const MainPage()),
                                 (route) => false);
                           });
                         }),
